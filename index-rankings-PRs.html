@@ -1,0 +1,971 @@
+<!doctype html><html lang=en><meta charset=utf-8>
+<title>Pulse rankings: PR data</title>
+<style>
+  body { font-family: sans-serif; }
+  body > section { margin-right: 64px; justify-content: center; }
+  body > section { display: flex; flex-flow: row wrap; padding-top: 20px }
+  section img { padding-top: 24px; padding-right: 12px; }
+  body > div { display: flex; flex-flow: row wrap; padding-top: 20px }
+  body > div { margin-bottom: 48px; }
+  h1 { font-size: 28px; color: forestgreen; text-align: center; }
+  h1 ~ p { text-align: center; }
+  table { counter-reset: rowNumber; }
+  table tr::before { display: table-cell; }
+  table tr::before { padding-right: 0.3em; padding-bottom: 3px; }
+  table tr::before { text-align: right; vertical-align: bottom; }
+  table tr::before { counter-increment: rowNumber; }
+  table tr::before { content: counter(rowNumber); }
+  table { text-align: right; min-width: 330px; }
+  table { margin: 2px 5px 56px 20px; border: 1px solid #ccc; }
+  thead { text-align: center; vertical-align: bottom }
+  th, td { padding: 8px; }
+  th { background: #eee; font-size: .95em; color: forestgreen; }
+  tbody tr { font-size: 13px }
+  td { padding: 4px 8px; vertical-align: bottom; }
+  table caption { height: 36px; }
+  table caption { padding-bottom: 6px; margin-top: 8px }
+  table caption { font-weight: bold; color: forestgreen; }
+  caption::first-letter { text-transform:capitalize; }
+  td a { font-weight: normal; vertical-align: bottom; }
+  tbody tr.highlight { background: #00ff28 !important; color: white; }
+  tbody tr.highlight { color: #111 !important; }
+  tbody tr.highlight a { color: #111 !important; }
+  tbody tr.highlight:nth-child(even) { background: #00ff28 !important; }
+  tbody tr:nth-child(even) { background: #eee; }
+  tbody tr:nth-child(even) { font-weight: bold; color: forestgreen; }
+  tfoot tr td { border-top: 1px solid #ccc; padding-top: 8px }
+  tfoot tr td { text-align: center; font-size: 13px;}
+  div ~ p { margin-top: -72px; margin-left: 20px; }
+</style>
+<section>
+  <div>
+    <a href="https://github.com/git-pulse/tools">
+      <img alt="git-pulse logo" src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzkuMDggMzM2LjUyIj4NCiAgPHJhZGlhbEdyYWRpZW50DQogICAgICBpZD0icmFkaWFsR3JhZGllbnQzNzM0Ig0KICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiDQogICAgICBjeT0iNjkwLjI4Ig0KICAgICAgY3g9IjQ2Ny43MSINCiAgICAgIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMTQuNTcyIC0uMDAyMDExOSAuMDE2OTM5IDE4MC4wOSAtNjM1OS40IC0xLjIzNDVlNSkiDQogICAgICByPSI0MC42MjMiPg0KICAgIDxzdG9wIGlkPSJzdG9wMzczMCIgc3R5bGU9InN0b3AtY29sb3I6IzIyOEIyMiIgb2Zmc2V0PSIwIiAvPg0KICAgIDxzdG9wIGlkPSJzdG9wMzczMiIgc3R5bGU9InN0b3AtY29sb3I6IzIyOEIyMjtzdG9wLW9wYWNpdHk6MCIgb2Zmc2V0PSIxIiAvPg0KICA8L3JhZGlhbEdyYWRpZW50Pg0KICA8ZyBpZD0ibGF5ZXIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDY3LjcxIC02MjMuNTMpIj4NCiAgICA8cGF0aCBpZD0icGF0aDIzOTYiDQogICAgICAgIHN0eWxlPSJzdHJva2U6dXJsKCNyYWRpYWxHcmFkaWVudDM3MzQpO3N0cm9rZS13aWR0aDoyNC4wNDU7ZmlsbDpub25lIg0KICAgICAgICBkPSJtNDc5LjczIDg1MC42OHMxOS42OSAxMSAyNi4zNSAxNy44NGMxMCAxMC4yNyAxOS4wNSA1Mi45OCAyNS43IDQwLjI4IDQwLjItNzYuNzYgNTguMTItMjczLjI1IDU4LjEyLTI3My4yNXMwLjM3IDEyNS4zOSA3LjQzIDE3OC41M2M1LjM0IDQwLjI2IDE5LjY3IDE0OS43MSAyOS44NyAxMzIuMDIgMTcuMDItMjkuNTEgMjIuNjMtODcuMTYgMzIuOTctMTI2LjY1IDQuOTUtMTguOTIgMTguNjMgMzcuOTcgMzEuMjMgNTcuMjYgNS43MiA4Ljc2IDQuOTYtMzMuMTkgMTUuNjEtMzIuMSAyNi4wMyAyLjY2IDI3Ljc2IDAuODcgMjcuNzYgMC44NyIgLz4NCiAgPC9nPg0KPC9zdmc%2B" height="75">
+    </a>
+  </div>
+  <div>
+    <h1>Pulse rankings: PR data</h1>
+    <p>
+    <a href="index.html">Committers</a>
+    •
+    <a href="index-rankings-issues.html">Issues</a>
+    •
+    <a href="index-rankings-PRs.html">PRs</a>
+    <p>
+    <i>Click on any row to highlight the given project’s rows in all tables.</i>
+    <p>
+    <i>Click on any project name to view the latest
+      <a href="https://github.com/git-pulse/tools#pulse-snapshots">pulse snapshot</a>
+      for that project.</i>
+  </div>
+</section>
+<div>
+  <table>
+    <caption>PRs opened per month
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>1998
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>1557
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>1154
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>1064
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>661
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>632
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>601
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>476
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>442
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>432
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>375
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>375
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>370
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>302
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>286
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>279
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>274
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>271
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>267
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>248
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>247
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>237
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>230
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>224
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>197
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>184
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>178
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>171
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>170
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>163
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>160
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>154
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>152
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>146
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>135
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>127
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>120
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>116
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>107
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>100
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>96
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>90
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>89
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>85
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>85
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>84
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>80
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>76
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>70
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>70
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>67
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>61
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>60
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>59
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>58
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>57
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>56
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>55
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>49
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>48
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>45
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>45
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>40
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>40
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>40
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>39
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>35
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>33
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>31
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>28
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>28
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>23
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>23
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>21
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>19
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>19
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>15
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>15
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>15
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>14
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>14
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>8
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>7
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>5
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>2
+  </table>
+  <table>
+    <caption>PRs merged per month
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>1180
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>945
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>608
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>486
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>414
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>327
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>319
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>312
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>292
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>289
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>274
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>264
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>259
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>243
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>239
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>218
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>214
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>197
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>179
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>160
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>159
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>154
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>146
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>146
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>142
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>141
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>135
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>134
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>128
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>118
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>117
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>114
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>112
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>107
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>97
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>96
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>93
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>80
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>78
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>75
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>74
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>71
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>65
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>62
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>62
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>59
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>58
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>57
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>55
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>51
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>51
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>46
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>46
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>45
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>45
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>45
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>40
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>38
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>36
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>35
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>34
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>32
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>29
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>27
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>24
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>21
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>21
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>19
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>15
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>13
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>12
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>12
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>12
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>10
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>7
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>6
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>5
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>4
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>3
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>3
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>2
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>1
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>0
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>0
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>0
+  </table>
+  <table>
+    <caption>PRs closed per month
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>1847
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>1237
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>373
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>182
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>166
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>163
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>142
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>135
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>119
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>118
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>114
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>86
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>79
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>69
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>56
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>51
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>50
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>50
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>50
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>48
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>46
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>46
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>42
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>41
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>40
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>39
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>39
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>38
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>38
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>38
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>37
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>35
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>33
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>32
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>31
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>30
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>29
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>25
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>25
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>24
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>23
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>23
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>21
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>20
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>20
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>17
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>16
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>14
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>14
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>14
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>12
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>12
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>12
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>12
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>11
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>11
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>11
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>11
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>9
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>9
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>9
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>9
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>8
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>7
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>7
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>7
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>7
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>7
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>7
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>6
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>6
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>5
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>4
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>3
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>3
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>3
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>2
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>2
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>2
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>2
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>2
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>2
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>1
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>1
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>0
+  </table>
+  <table>
+    <caption>How many times as many open PRs as the average # of PRs
+    opened per month?
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>0
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>0.02
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>0.04
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>0.04
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>0.06
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>0.06
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>0.07
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>0.09
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>0.1
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>0.1
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>0.12
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>0.14
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>0.15
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>0.18
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>0.19
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>0.2
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>0.2
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>0.23
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>0.23
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>0.27
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>0.29
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>0.33
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>0.35
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>0.37
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>0.38
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>0.43
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>0.48
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>0.5
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>0.51
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>0.57
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>0.57
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>0.59
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>0.65
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>0.67
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>0.69
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>0.71
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>0.71
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>0.73
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>0.78
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>0.81
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>0.85
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>0.86
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>0.89
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>0.91
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>0.92
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>0.93
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>1.11
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>1.11
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>1.12
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>1.18
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>1.22
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>1.24
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>1.33
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>1.37
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>1.46
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>1.51
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>1.56
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>1.61
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>1.66
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>1.67
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>1.75
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>1.76
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>1.76
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>1.96
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>2.09
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>2.31
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>2.38
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>2.64
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>2.78
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>2.82
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>3.33
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>3.49
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>3.65
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>3.71
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>4
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>4.61
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>4.89
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>5.14
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>5.68
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>5.69
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>5.85
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>8.6
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>10.75
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>15.14
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>15.47
+  </table>
+  <table>
+    <caption>What % of commits come from PRs?<br>
+    (av. monthly commits / av. monthly PRs)
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>145
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>130
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>121
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>116
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>108
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>108
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>102
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>102
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>102
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>101
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>101
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>101
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>100
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>100
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>100
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>100
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>100
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>100
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>98
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>98
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>98
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>98
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>95
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>94
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>93
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>90
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>89
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>89
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>89
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>86
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>85
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>84
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>84
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>82
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>82
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>80
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>80
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>79
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>79
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>78
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>77
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>75
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>71
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>70
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>67
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>67
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>66
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>66
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>66
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>62
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>58
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>58
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>58
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>57
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>56
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>54
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>53
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>49
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>48
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>47
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>46
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>45
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>45
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>44
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>43
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>31
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>25
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>18
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>17
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>17
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>16
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>15
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>15
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>11
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>11
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>5
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>5
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>4
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>3
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>2
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>2
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>0
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>0
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>0
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>0
+  </table>
+  <table>
+    <caption>How many times as many closed PRs as open PRs?
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>3598
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>3507.75
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>2188
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>2125.02
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>1502.56
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>1081.86
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>796.16
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>738.5
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>688.86
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>529.5
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>465
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>449.88
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>390.62
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>373
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>282.27
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>255.74
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>243.37
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>206.1
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>187.44
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>169.39
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>164.43
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>164.42
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>163.27
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>162.74
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>154.81
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>134.71
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>134.19
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>133.94
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>132.28
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>130.3
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>128.84
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>125.3
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>124.28
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>123.95
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>123.46
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>121.86
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>121.77
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>121.45
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>118.15
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>114.19
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>106.56
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>105.39
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>103.88
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>102.56
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>101.53
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>100.85
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>95.28
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>92.08
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>91.94
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>90.38
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>87.48
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>86.47
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>86.12
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>84.96
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>84.35
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>84.02
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>79.84
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>75.65
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>73.22
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>62.18
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>60.73
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>53.42
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>52.91
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>52.12
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>51.77
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>49.49
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>49.34
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>45.23
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>42.57
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>35.35
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>35.02
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>28.63
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>27.57
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>26.02
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>23.96
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>23.49
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>21.48
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>19.87
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>18.69
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>14.04
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>8.52
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>7.65
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>5.79
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>4.43
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>3.6
+  </table>
+  <table>
+    <caption>PRs resolved count
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>121126
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>100316
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>68779
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>53740
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>52888
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>47090
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>43747
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>35965
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>30323
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>29652
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>29229
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>29151
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>27691
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>27164
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>25048
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>24580
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>24041
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>23133
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>21786
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>20962
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>20074
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>19533
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>18669
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>17169
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>16620
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>15644
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>14554
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>14339
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>14031
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>13490
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>13117
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>12985
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>12772
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>12519
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>12118
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>12047
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>11640
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>11094
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>10951
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>10534
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>9372
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>8835
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>8754
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>8490
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>8224
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>7573
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>7196
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>6680
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>6658
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>6073
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>5251
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>5125
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>4831
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>4822
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>4815
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>4482
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>4152
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>3607
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>3599
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>3125
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>3105
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>3071
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>2923
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>2913
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>2807
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>2615
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>2559
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>2479
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>2477
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>2379
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>2188
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>2088
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>2061
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>1976
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>1918
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>1687
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>1517
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>1516
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>1477
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>1301
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>1151
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>764
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>684
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>373
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>249
+  </table>
+  <table>
+    <caption>Net closure rate for PRs (% of new PRs resolved each month
+    on average)
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>115
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>114
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>114
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>111
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>107
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>106
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>106
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>105
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>105
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>105
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>103
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>103
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>102
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>102
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>101
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>101
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>101
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>101
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>100
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>100
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>100
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>100
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>100
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>100
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>100
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>100
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>100
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>100
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>100
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>100
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>100
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>100
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>100
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>100
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>100
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>99
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>99
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>99
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>99
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>99
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>99
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>99
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>99
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>99
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>99
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>98
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>98
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>98
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>98
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>98
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>98
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>98
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>98
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>98
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>97
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>97
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>97
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>97
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>97
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>97
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>97
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>97
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>96
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>96
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>96
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>96
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>96
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>95
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>95
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>95
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>95
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>95
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>95
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>93
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>93
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>92
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>92
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>91
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>89
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>89
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>89
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>85
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>80
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>42
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>40
+  </table>
+  <table>
+    <caption>PRs open count
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>0
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>1
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>2
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>2
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>4
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>7
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>7
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>7
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>8
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>8
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>9
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>10
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>11
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>11
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>16
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>16
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>18
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>19
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>19
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>20
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>21
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>28
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>31
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>31
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>31
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>36
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>39
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>43
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>50
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>52
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>55
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>56
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>57
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>57
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>73
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>77
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>81
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>86
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>93
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>99
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>100
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>101
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>108
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>110
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>122
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>124
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>125
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>126
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>128
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>129
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>137
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>141
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>143
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>145
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>146
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>149
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>169
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>193
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>205
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>212
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>212
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>218
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>220
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>221
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>221
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>228
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>232
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>250
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>273
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>283
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>285
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>288
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>298
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>317
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>352
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>356
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>371
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>564
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>589
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>634
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>660
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>761
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>839
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>1059
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>1072
+  </table>
+  <table>
+    <caption>Average increase or decrease in open PRs per month
+    <tr class="pytorch_pytorch" title="Click to highlight the pytorch/pytorch project’s rows in all tables."><td><a href="pytorch-pytorch-2022-07-09-pulse.html">pytorch/pytorch</a><td>-129
+    <tr class="kubernetes_kubernetes" title="Click to highlight the kubernetes/kubernetes project’s rows in all tables."><td><a href="kubernetes-kubernetes-2022-07-09-pulse.html">kubernetes/kubernetes</a><td>-24
+    <tr class="ansible_ansible" title="Click to highlight the ansible/ansible project’s rows in all tables."><td><a href="ansible-ansible-2022-07-09-pulse.html">ansible/ansible</a><td>-12
+    <tr class="facebook_react_native" title="Click to highlight the facebook/react-native project’s rows in all tables."><td><a href="facebook-react-native-2022-07-09-pulse.html">facebook/react-native</a><td>-8
+    <tr class="microsoft_TypeScript" title="Click to highlight the microsoft/TypeScript project’s rows in all tables."><td><a href="microsoft-TypeScript-2022-07-09-pulse.html">microsoft/TypeScript</a><td>-7
+    <tr class="scikit_learn_scikit_learn" title="Click to highlight the scikit-learn/scikit-learn project’s rows in all tables."><td><a href="scikit-learn-scikit-learn-2022-07-09-pulse.html">scikit-learn/scikit-learn</a><td>-6
+    <tr class="pandas_dev_pandas" title="Click to highlight the pandas-dev/pandas project’s rows in all tables."><td><a href="pandas-dev-pandas-2022-07-09-pulse.html">pandas-dev/pandas</a><td>-5
+    <tr class="spring_projects_spring_framework" title="Click to highlight the spring-projects/spring-framework project’s rows in all tables."><td><a href="spring-projects-spring-framework-2022-07-09-pulse.html">spring-projects/spring-framework</a><td>-4
+    <tr class="numpy_numpy" title="Click to highlight the numpy/numpy project’s rows in all tables."><td><a href="numpy-numpy-2022-07-09-pulse.html">numpy/numpy</a><td>-4
+    <tr class="puppeteer_puppeteer" title="Click to highlight the puppeteer/puppeteer project’s rows in all tables."><td><a href="puppeteer-puppeteer-2022-07-09-pulse.html">puppeteer/puppeteer</a><td>-3
+    <tr class="spring_projects_spring_security" title="Click to highlight the spring-projects/spring-security project’s rows in all tables."><td><a href="spring-projects-spring-security-2022-07-09-pulse.html">spring-projects/spring-security</a><td>-3
+    <tr class="golang_go" title="Click to highlight the golang/go project’s rows in all tables."><td><a href="golang-go-2022-07-09-pulse.html">golang/go</a><td>-3
+    <tr class="PowerShell_PowerShell" title="Click to highlight the PowerShell/PowerShell project’s rows in all tables."><td><a href="PowerShell-PowerShell-2022-07-09-pulse.html">PowerShell/PowerShell</a><td>-2
+    <tr class="django_django" title="Click to highlight the django/django project’s rows in all tables."><td><a href="django-django-2022-07-09-pulse.html">django/django</a><td>-2
+    <tr class="webpack_webpack_js_org" title="Click to highlight the webpack/webpack.js.org project’s rows in all tables."><td><a href="webpack-webpack.js.org-2022-07-09-pulse.html">webpack/webpack.js.org</a><td>-1
+    <tr class="jenkinsci_jenkins" title="Click to highlight the jenkinsci/jenkins project’s rows in all tables."><td><a href="jenkinsci-jenkins-2022-07-09-pulse.html">jenkinsci/jenkins</a><td>-1
+    <tr class="sveltejs_svelte" title="Click to highlight the sveltejs/svelte project’s rows in all tables."><td><a href="sveltejs-svelte-2022-07-09-pulse.html">sveltejs/svelte</a><td>-1
+    <tr class="pallets_flask" title="Click to highlight the pallets/flask project’s rows in all tables."><td><a href="pallets-flask-2022-07-09-pulse.html">pallets/flask</a><td>0
+    <tr class="FFmpeg_FFmpeg" title="Click to highlight the FFmpeg/FFmpeg project’s rows in all tables."><td><a href="FFmpeg-FFmpeg-2022-07-10-pulse.html">FFmpeg/FFmpeg</a><td>0
+    <tr class="github_opensource_guide" title="Click to highlight the github/opensource.guide project’s rows in all tables."><td><a href="github-opensource.guide-2022-07-09-pulse.html">github/opensource.guide</a><td>0
+    <tr class="elixir_lang_elixir" title="Click to highlight the elixir-lang/elixir project’s rows in all tables."><td><a href="elixir-lang-elixir-2022-07-09-pulse.html">elixir-lang/elixir</a><td>0
+    <tr class="dotnet_AspNetCore_Docs" title="Click to highlight the dotnet/AspNetCore.Docs project’s rows in all tables."><td><a href="dotnet-AspNetCore.Docs-2022-07-09-pulse.html">dotnet/AspNetCore.Docs</a><td>0
+    <tr class="flutter_website" title="Click to highlight the flutter/website project’s rows in all tables."><td><a href="flutter-website-2022-07-09-pulse.html">flutter/website</a><td>0
+    <tr class="laravel_docs" title="Click to highlight the laravel/docs project’s rows in all tables."><td><a href="laravel-docs-2022-07-09-pulse.html">laravel/docs</a><td>0
+    <tr class="vuejs_docs" title="Click to highlight the vuejs/docs project’s rows in all tables."><td><a href="vuejs-docs-2022-07-09-pulse.html">vuejs/docs</a><td>0
+    <tr class="microsoft_vscode_docs" title="Click to highlight the microsoft/vscode-docs project’s rows in all tables."><td><a href="microsoft-vscode-docs-2022-07-09-pulse.html">microsoft/vscode-docs</a><td>0
+    <tr class="MicrosoftDocs_visualstudio_docs" title="Click to highlight the MicrosoftDocs/visualstudio-docs project’s rows in all tables."><td><a href="MicrosoftDocs-visualstudio-docs-2022-07-09-pulse.html">MicrosoftDocs/visualstudio-docs</a><td>0
+    <tr class="raspberrypi_documentation" title="Click to highlight the raspberrypi/documentation project’s rows in all tables."><td><a href="raspberrypi-documentation-2022-07-09-pulse.html">raspberrypi/documentation</a><td>0
+    <tr class="tensorflow_docs" title="Click to highlight the tensorflow/docs project’s rows in all tables."><td><a href="tensorflow-docs-2022-07-09-pulse.html">tensorflow/docs</a><td>0
+    <tr class="dotnet_AspNetDocs" title="Click to highlight the dotnet/AspNetDocs project’s rows in all tables."><td><a href="dotnet-AspNetDocs-2022-07-09-pulse.html">dotnet/AspNetDocs</a><td>0
+    <tr class="laravel_framework" title="Click to highlight the laravel/framework project’s rows in all tables."><td><a href="laravel-framework-2022-07-09-pulse.html">laravel/framework</a><td>0
+    <tr class="awsdocs_aws_doc_sdk_examples" title="Click to highlight the awsdocs/aws-doc-sdk-examples project’s rows in all tables."><td><a href="awsdocs-aws-doc-sdk-examples-2022-07-09-pulse.html">awsdocs/aws-doc-sdk-examples</a><td>0
+    <tr class="microsoft_playwright" title="Click to highlight the microsoft/playwright project’s rows in all tables."><td><a href="microsoft-playwright-2022-07-09-pulse.html">microsoft/playwright</a><td>0
+    <tr class="tidyverse_ggplot2" title="Click to highlight the tidyverse/ggplot2 project’s rows in all tables."><td><a href="tidyverse-ggplot2-2022-07-09-pulse.html">tidyverse/ggplot2</a><td>0
+    <tr class="SeleniumHQ_selenium" title="Click to highlight the SeleniumHQ/selenium project’s rows in all tables."><td><a href="SeleniumHQ-selenium-2022-07-09-pulse.html">SeleniumHQ/selenium</a><td>0
+    <tr class="MicrosoftDocs_azure_devops_docs" title="Click to highlight the MicrosoftDocs/azure-devops-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-devops-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-devops-docs</a><td>0
+    <tr class="travis_ci_docs_travis_ci_com" title="Click to highlight the travis-ci/docs-travis-ci-com project’s rows in all tables."><td><a href="travis-ci-docs-travis-ci-com-2022-07-09-pulse.html">travis-ci/docs-travis-ci-com</a><td>0
+    <tr class="MicrosoftDocs_sql_docs" title="Click to highlight the MicrosoftDocs/sql-docs project’s rows in all tables."><td><a href="MicrosoftDocs-sql-docs-2022-07-09-pulse.html">MicrosoftDocs/sql-docs</a><td>0
+    <tr class="phoenixframework_phoenix" title="Click to highlight the phoenixframework/phoenix project’s rows in all tables."><td><a href="phoenixframework-phoenix-2022-07-09-pulse.html">phoenixframework/phoenix</a><td>0
+    <tr class="spring_projects_spring_boot" title="Click to highlight the spring-projects/spring-boot project’s rows in all tables."><td><a href="spring-projects-spring-boot-2022-07-09-pulse.html">spring-projects/spring-boot</a><td>0
+    <tr class="facebook_docusaurus" title="Click to highlight the facebook/docusaurus project’s rows in all tables."><td><a href="facebook-docusaurus-2022-07-09-pulse.html">facebook/docusaurus</a><td>0
+    <tr class="w3c_csswg_drafts" title="Click to highlight the w3c/csswg-drafts project’s rows in all tables."><td><a href="w3c-csswg-drafts-2022-07-09-pulse.html">w3c/csswg-drafts</a><td>0
+    <tr class="freeCodeCamp_freeCodeCamp" title="Click to highlight the freeCodeCamp/freeCodeCamp project’s rows in all tables."><td><a href="freeCodeCamp-freeCodeCamp-2022-07-09-pulse.html">freeCodeCamp/freeCodeCamp</a><td>0
+    <tr class="tc39_ecma262" title="Click to highlight the tc39/ecma262 project’s rows in all tables."><td><a href="tc39-ecma262-2022-07-09-pulse.html">tc39/ecma262</a><td>0
+    <tr class="apache_airflow" title="Click to highlight the apache/airflow project’s rows in all tables."><td><a href="apache-airflow-2022-07-09-pulse.html">apache/airflow</a><td>0
+    <tr class="whatwg_html" title="Click to highlight the whatwg/html project’s rows in all tables."><td><a href="whatwg-html-2022-07-09-pulse.html">whatwg/html</a><td>0
+    <tr class="home_assistant_home_assistant_io" title="Click to highlight the home-assistant/home-assistant.io project’s rows in all tables."><td><a href="home-assistant-home-assistant.io-2022-07-09-pulse.html">home-assistant/home-assistant.io</a><td>0
+    <tr class="gatsbyjs_gatsby" title="Click to highlight the gatsbyjs/gatsby project’s rows in all tables."><td><a href="gatsbyjs-gatsby-2022-07-09-pulse.html">gatsbyjs/gatsby</a><td>0
+    <tr class="rails_rails" title="Click to highlight the rails/rails project’s rows in all tables."><td><a href="rails-rails-2022-07-09-pulse.html">rails/rails</a><td>0
+    <tr class="moby_moby" title="Click to highlight the moby/moby project’s rows in all tables."><td><a href="moby-moby-2022-07-09-pulse.html">moby/moby</a><td>0
+    <tr class="github_docs" title="Click to highlight the github/docs project’s rows in all tables."><td><a href="github-docs-2022-07-09-pulse.html">github/docs</a><td>1
+    <tr class="chef_chef" title="Click to highlight the chef/chef project’s rows in all tables."><td><a href="chef-chef-2022-07-09-pulse.html">chef/chef</a><td>1
+    <tr class="sphinx_doc_sphinx" title="Click to highlight the sphinx-doc/sphinx project’s rows in all tables."><td><a href="sphinx-doc-sphinx-2022-07-09-pulse.html">sphinx-doc/sphinx</a><td>1
+    <tr class="mongodb_docs" title="Click to highlight the mongodb/docs project’s rows in all tables."><td><a href="mongodb-docs-2022-07-09-pulse.html">mongodb/docs</a><td>1
+    <tr class="kubernetes_website" title="Click to highlight the kubernetes/website project’s rows in all tables."><td><a href="kubernetes-website-2022-07-09-pulse.html">kubernetes/website</a><td>1
+    <tr class="dotnet_docs" title="Click to highlight the dotnet/docs project’s rows in all tables."><td><a href="dotnet-docs-2022-07-09-pulse.html">dotnet/docs</a><td>2
+    <tr class="denoland_deno" title="Click to highlight the denoland/deno project’s rows in all tables."><td><a href="denoland-deno-2022-07-09-pulse.html">denoland/deno</a><td>2
+    <tr class="opencv_opencv" title="Click to highlight the opencv/opencv project’s rows in all tables."><td><a href="opencv-opencv-2022-07-09-pulse.html">opencv/opencv</a><td>2
+    <tr class="twbs_bootstrap" title="Click to highlight the twbs/bootstrap project’s rows in all tables."><td><a href="twbs-bootstrap-2022-07-09-pulse.html">twbs/bootstrap</a><td>2
+    <tr class="mrdoob_three_js" title="Click to highlight the mrdoob/three.js project’s rows in all tables."><td><a href="mrdoob-three.js-2022-07-09-pulse.html">mrdoob/three.js</a><td>2
+    <tr class="vercel_next_js" title="Click to highlight the vercel/next.js project’s rows in all tables."><td><a href="vercel-next.js-2022-07-09-pulse.html">vercel/next.js</a><td>2
+    <tr class="tensorflow_tensorflow" title="Click to highlight the tensorflow/tensorflow project’s rows in all tables."><td><a href="tensorflow-tensorflow-2022-07-09-pulse.html">tensorflow/tensorflow</a><td>2
+    <tr class="vuejs_vue" title="Click to highlight the vuejs/vue project’s rows in all tables."><td><a href="vuejs-vue-2022-07-09-pulse.html">vuejs/vue</a><td>2
+    <tr class="docker_docker_github_io" title="Click to highlight the docker/docker.github.io project’s rows in all tables."><td><a href="docker-docker.github.io-2022-07-09-pulse.html">docker/docker.github.io</a><td>2
+    <tr class="matplotlib_matplotlib" title="Click to highlight the matplotlib/matplotlib project’s rows in all tables."><td><a href="matplotlib-matplotlib-2022-07-09-pulse.html">matplotlib/matplotlib</a><td>2
+    <tr class="awsdocs_aws_lambda_developer_guide" title="Click to highlight the awsdocs/aws-lambda-developer-guide project’s rows in all tables."><td><a href="awsdocs-aws-lambda-developer-guide-2022-07-09-pulse.html">awsdocs/aws-lambda-developer-guide</a><td>3
+    <tr class="Homebrew_homebrew_cask" title="Click to highlight the Homebrew/homebrew-cask project’s rows in all tables."><td><a href="Homebrew-homebrew-cask-2022-07-09-pulse.html">Homebrew/homebrew-cask</a><td>3
+    <tr class="mdn_content highlight" title="Click to highlight the mdn/content project’s rows in all tables."><td><a href="mdn-content-2022-07-09-pulse.html">mdn/content</a><td>3
+    <tr class="dotnet_dotnet_api_docs" title="Click to highlight the dotnet/dotnet-api-docs project’s rows in all tables."><td><a href="dotnet-dotnet-api-docs-2022-07-09-pulse.html">dotnet/dotnet-api-docs</a><td>3
+    <tr class="gradle_gradle" title="Click to highlight the gradle/gradle project’s rows in all tables."><td><a href="gradle-gradle-2022-07-09-pulse.html">gradle/gradle</a><td>3
+    <tr class="flutter_flutter" title="Click to highlight the flutter/flutter project’s rows in all tables."><td><a href="flutter-flutter-2022-07-09-pulse.html">flutter/flutter</a><td>3
+    <tr class="symfony_symfony" title="Click to highlight the symfony/symfony project’s rows in all tables."><td><a href="symfony-symfony-2022-07-09-pulse.html">symfony/symfony</a><td>3
+    <tr class="vitejs_vite" title="Click to highlight the vitejs/vite project’s rows in all tables."><td><a href="vitejs-vite-2022-07-09-pulse.html">vitejs/vite</a><td>4
+    <tr class="Homebrew_homebrew_core" title="Click to highlight the Homebrew/homebrew-core project’s rows in all tables."><td><a href="Homebrew-homebrew-core-2022-07-09-pulse.html">Homebrew/homebrew-core</a><td>4
+    <tr class="reactjs_reactjs_org" title="Click to highlight the reactjs/reactjs.org project’s rows in all tables."><td><a href="reactjs-reactjs.org-2022-07-09-pulse.html">reactjs/reactjs.org</a><td>4
+    <tr class="home_assistant_core" title="Click to highlight the home-assistant/core project’s rows in all tables."><td><a href="home-assistant-core-2022-07-09-pulse.html">home-assistant/core</a><td>5
+    <tr class="mui_material_ui" title="Click to highlight the mui/material-ui project’s rows in all tables."><td><a href="mui-material-ui-2022-07-09-pulse.html">mui/material-ui</a><td>6
+    <tr class="awsdocs_aws_cloudformation_user_guide" title="Click to highlight the awsdocs/aws-cloudformation-user-guide project’s rows in all tables."><td><a href="awsdocs-aws-cloudformation-user-guide-2022-07-09-pulse.html">awsdocs/aws-cloudformation-user-guide</a><td>6
+    <tr class="symfony_symfony_docs" title="Click to highlight the symfony/symfony-docs project’s rows in all tables."><td><a href="symfony-symfony-docs-2022-07-09-pulse.html">symfony/symfony-docs</a><td>7
+    <tr class="facebook_react" title="Click to highlight the facebook/react project’s rows in all tables."><td><a href="facebook-react-2022-07-09-pulse.html">facebook/react</a><td>7
+    <tr class="nodejs_node" title="Click to highlight the nodejs/node project’s rows in all tables."><td><a href="nodejs-node-2022-07-09-pulse.html">nodejs/node</a><td>7
+    <tr class="JuliaLang_julia" title="Click to highlight the JuliaLang/julia project’s rows in all tables."><td><a href="JuliaLang-julia-2022-07-09-pulse.html">JuliaLang/julia</a><td>9
+    <tr class="rust_lang_rust" title="Click to highlight the rust-lang/rust project’s rows in all tables."><td><a href="rust-lang-rust-2022-07-09-pulse.html">rust-lang/rust</a><td>10
+    <tr class="web_platform_tests_wpt" title="Click to highlight the web-platform-tests/wpt project’s rows in all tables."><td><a href="web-platform-tests-wpt-2022-07-09-pulse.html">web-platform-tests/wpt</a><td>14
+    <tr class="MicrosoftDocs_azure_docs" title="Click to highlight the MicrosoftDocs/azure-docs project’s rows in all tables."><td><a href="MicrosoftDocs-azure-docs-2022-07-09-pulse.html">MicrosoftDocs/azure-docs</a><td>20
+  </table>
+</div>
+<p>
+<a href="https://github.com/git-pulse/tools">
+  <img height=18 alt="git-pulse logo" src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzkuMDggMzM2LjUyIj4NCiAgPHJhZGlhbEdyYWRpZW50DQogICAgICBpZD0icmFkaWFsR3JhZGllbnQzNzM0Ig0KICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiDQogICAgICBjeT0iNjkwLjI4Ig0KICAgICAgY3g9IjQ2Ny43MSINCiAgICAgIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMTQuNTcyIC0uMDAyMDExOSAuMDE2OTM5IDE4MC4wOSAtNjM1OS40IC0xLjIzNDVlNSkiDQogICAgICByPSI0MC42MjMiPg0KICAgIDxzdG9wIGlkPSJzdG9wMzczMCIgc3R5bGU9InN0b3AtY29sb3I6IzIyOEIyMiIgb2Zmc2V0PSIwIiAvPg0KICAgIDxzdG9wIGlkPSJzdG9wMzczMiIgc3R5bGU9InN0b3AtY29sb3I6IzIyOEIyMjtzdG9wLW9wYWNpdHk6MCIgb2Zmc2V0PSIxIiAvPg0KICA8L3JhZGlhbEdyYWRpZW50Pg0KICA8ZyBpZD0ibGF5ZXIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDY3LjcxIC02MjMuNTMpIj4NCiAgICA8cGF0aCBpZD0icGF0aDIzOTYiDQogICAgICAgIHN0eWxlPSJzdHJva2U6dXJsKCNyYWRpYWxHcmFkaWVudDM3MzQpO3N0cm9rZS13aWR0aDoyNC4wNDU7ZmlsbDpub25lIg0KICAgICAgICBkPSJtNDc5LjczIDg1MC42OHMxOS42OSAxMSAyNi4zNSAxNy44NGMxMCAxMC4yNyAxOS4wNSA1Mi45OCAyNS43IDQwLjI4IDQwLjItNzYuNzYgNTguMTItMjczLjI1IDU4LjEyLTI3My4yNXMwLjM3IDEyNS4zOSA3LjQzIDE3OC41M2M1LjM0IDQwLjI2IDE5LjY3IDE0OS43MSAyOS44NyAxMzIuMDIgMTcuMDItMjkuNTEgMjIuNjMtODcuMTYgMzIuOTctMTI2LjY1IDQuOTUtMTguOTIgMTguNjMgMzcuOTcgMzEuMjMgNTcuMjYgNS43MiA4Ljc2IDQuOTYtMzMuMTkgMTUuNjEtMzIuMSAyNi4wMyAyLjY2IDI3Ljc2IDAuODcgMjcuNzYgMC44NyIgLz4NCiAgPC9nPg0KPC9zdmc%2B"
+></a>
+<small>Generated with <a href="https://github.com/git-pulse/tools">git-pulse-rank.js</a></small>
+<script>
+const classToHighlight = localStorage.getItem("classToHighlight");
+if (classToHighlight) {
+  document.querySelectorAll(".highlight")
+    .forEach((element) => element.classList.remove("highlight"));
+  document.querySelectorAll("." + classToHighlight)
+  .forEach((element) => element.classList.add("highlight"));
+}
+document.body.onclick = (e) => {
+  if (e.target.tagName === "A") {
+    return;
+  }
+  document.querySelectorAll(".highlight")
+    .forEach((element) => element.classList.remove("highlight"));
+  const className = e.target.parentNode.className;
+  document.querySelectorAll("." + className)
+    .forEach((element) => element.classList.add("highlight"));
+  localStorage.setItem("classToHighlight", className);
+}
+</script>
