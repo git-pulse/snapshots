@@ -8,6 +8,7 @@ REPO_URLS=\
 		  git@github.com:MicrosoftDocs/visualstudio-docs.git \
 		  git@github.com:PowerShell/PowerShell.git \
 		  git@github.com:SeleniumHQ/selenium.git \
+		  git@github.com:WebKit/WebKit.git \
 		  git@github.com:ansible/ansible.git \
 		  git@github.com:apache/airflow.git \
 		  git@github.com:awsdocs/aws-cloudformation-user-guide.git \
@@ -53,7 +54,7 @@ REPO_URLS=\
 		  git@github.com:pytorch/pytorch.git \
 		  git@github.com:rails/rails.git \
 		  git@github.com:raspberrypi/documentation.git \
-		  git@github.com:reactjs/reactjs.org.git \
+		  git@github.com:reactjs/react.dev.git \
 		  git@github.com:rust-lang/rust.git \
 		  git@github.com:scikit-learn/scikit-learn.git \
 		  git@github.com:sphinx-doc/sphinx.git \
@@ -74,7 +75,7 @@ REPO_URLS=\
 		  git@github.com:w3c/csswg-drafts.git \
 		  git@github.com:web-platform-tests/wpt.git \
 		  git@github.com:webpack/webpack.js.org.git \
-		  git@github.com:whatwg/html.git
+		  git@github.com:whatwg/html.git \
 
 rank:
 	node tools/git-pulse-rank.js
