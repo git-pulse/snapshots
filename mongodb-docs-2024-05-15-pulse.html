@@ -1,0 +1,2603 @@
+<!doctype html><html lang=en><meta charset=utf-8>
+<title>mongodb/docs - pulse snapshot for 15 May 2024</title>
+<style>
+  body { font-family: sans-serif; }
+  body > section { margin-right: 64px; justify-content: center; }
+  body > section { display: flex; flex-flow: row wrap; padding-top: 20px }
+  section img { padding-top: 24px; padding-right: 12px; }
+  body > div { display: flex; flex-flow: row wrap; padding-top: 20px }
+  .bargraph { display: flex; flex-direction: column }
+  .bargraph .svg { flex: 1 0 auto }
+  .bargraph p { margin: 0 0 10px 0 }
+  .months_summary { padding: 2px 20px; }
+  .months_summary p { padding: 0; }
+  h1 { font-size: 28px; text-align: center; }
+  h1, h2, h3, h4 { color: #32cd32; }
+  h1, h2, h3 { text-align: center; }
+  h4 { margin-left: -21px; }
+  h2 span, h3 span, h4 span { visibility: hidden; font-size: .85em;  }
+  h2:hover span, h3:hover span, h4:hover span { visibility: visible; }
+  h2:hover span, h3:hover span, h4:hover span { opacity: .6; }
+  h2 a, h3 a, h4 a { color: #32cd32; text-decoration: none; }
+  h2 a:visited { color: #32cd32; text-decoration: none; }
+  h3 a:visited { color: #32cd32; text-decoration: none; }
+  h4 a:visited { color: #32cd32; text-decoration: none; }
+  h3 { margin: 64px 0 14px 0 }
+  h2 + p { text-align: center }
+  h3 ~ p { text-align: center }
+  section + h2 { padding: 48px 0 0 0; border-top: 2px solid #eee }
+  .links { text-align: center; }
+  #committer-pulse { margin-top: 48px; }
+  table { text-align: right; }
+  table:not(.simple) { width: 676px; height: 442px; }
+  table.simple { width: 670px; margin-left: 6px }
+  table { margin: 2px 5px 16px 0; border: 1px solid #ccc; }
+  thead { text-align: center; vertical-align: bottom }
+  th, td { padding: 8px; }
+  th { background: #eee; font-size: .95em; color: #32cd32; }
+  tbody tr { font-family: monospace; font-size: 13px }
+  td { padding: 4px 8px; }
+  table:not(.simple):first-of-type td:nth-of-type(6n) { text-align: left; }
+  table caption { padding-bottom: 6px; margin-top: 8px; }
+  table caption { font-weight: bold; color: #32cd32; }
+  table caption a { color: #32cd32; text-decoration: none }
+  table caption a:visited { color: #32cd32; text-decoration: none }
+  table caption span { visibility: hidden; font-size: .85em; }
+  table caption:hover span { visibility: visible; opacity: .6; }
+  table:not(.simple) td:nth-of-type(8n) { text-align: left; }
+  td a { font-weight: normal; }
+  tbody tr:nth-child(even) { background: #eee; }
+  tbody tr:nth-child(even) { font-weight: bold; color: #32cd32; }
+  tfoot tr td { border-top: 1px solid #ccc; padding-top: 8px }
+  tfoot tr td { text-align: center; font-size: 13px;}
+  code { color: orangered; font-size: 15px; font-weight: bold }
+  svg { border: 1px solid #ccc; margin-top: 2px; margin-left: 6px }
+  svg + h2 { margin-top: 96px; }
+  p img { vertical-align: middle; padding-bottom: 6px; padding-left: 8px; }
+  svg a { text-decoration: underline; }
+  svg tspan a[id] { text-decoration: none; }
+  svg tspan a[id] tspan { visibility: hidden; font-size: .85em; }
+  svg tspan a[id]:hover tspan { visibility: visible; opacity: .6; }
+</style>
+<section>
+  <div>
+  <a href="https://github.com/git-pulse/tools"><img height=75 alt="git-pulse logo" src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzkuMDggMzM2LjUyIj4KICA8cmFkaWFsR3JhZGllbnQKICAgICAgaWQ9InJhZGlhbEdyYWRpZW50MzczNCIKICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiCiAgICAgIGN5PSI2OTAuMjgiCiAgICAgIGN4PSI0NjcuNzEiCiAgICAgIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMTQuNTcyIC0uMDAyMDExOSAuMDE2OTM5IDE4MC4wOSAtNjM1OS40IC0xLjIzNDVlNSkiCiAgICAgIHI9IjQwLjYyMyI+CiAgICA8c3RvcCBpZD0ic3RvcDM3MzAiIHN0eWxlPSJzdG9wLWNvbG9yOiMzMmNkMzIiIG9mZnNldD0iMCIgLz4KICAgIDxzdG9wIGlkPSJzdG9wMzczMiIgc3R5bGU9InN0b3AtY29sb3I6IzMyY2QzMjtzdG9wLW9wYWNpdHk6MCIgb2Zmc2V0PSIxIiAvPgogIDwvcmFkaWFsR3JhZGllbnQ+CiAgPGcgaWQ9ImxheWVyMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQ2Ny43MSAtNjIzLjUzKSI+CiAgICA8cGF0aCBpZD0icGF0aDIzOTYiCiAgICAgICAgc3R5bGU9InN0cm9rZTp1cmwoI3JhZGlhbEdyYWRpZW50MzczNCk7c3Ryb2tlLXdpZHRoOjI0LjA0NTtmaWxsOm5vbmUiCiAgICAgICAgZD0ibTQ3OS43MyA4NTAuNjhzMTkuNjkgMTEgMjYuMzUgMTcuODRjMTAgMTAuMjcgMTkuMDUgNTIuOTggMjUuNyA0MC4yOCA0MC4yLTc2Ljc2IDU4LjEyLTI3My4yNSA1OC4xMi0yNzMuMjVzMC4zNyAxMjUuMzkgNy40MyAxNzguNTNjNS4zNCA0MC4yNiAxOS42NyAxNDkuNzEgMjkuODcgMTMyLjAyIDE3LjAyLTI5LjUxIDIyLjYzLTg3LjE2IDMyLjk3LTEyNi42NSA0Ljk1LTE4LjkyIDE4LjYzIDM3Ljk3IDMxLjIzIDU3LjI2IDUuNzIgOC43NiA0Ljk2LTMzLjE5IDE1LjYxLTMyLjEgMjYuMDMgMi42NiAyNy43NiAwLjg3IDI3Ljc2IDAuODciIC8+CiAgPC9nPgo8L3N2Zz4K"></a>
+  </div>
+  <div>
+  <h1>Pulse snapshot for 15 May 2024</h1>
+  <h2><a href="https://github.com/mongodb/docs">https://github.com/mongodb/docs</a></h2>
+  <p><a href="mongodb-docs-2024-05-15-pulse.json">JSON snapshot also available</a>
+  </div>
+</section>
+<p class="links">
+Committers:
+<a href="#committers-months-summary">summary</a>
+•
+<a href="#committer-pulse">month-by-month</a>
+•
+graphs:
+<a href="#committers_per_month">committers per month</a>
+•
+<a href="#commits_per_month">commits per month</a>
+•
+<a href="#total_committers">total committers</a>
+
+<p class="links">
+Issues:
+<a href="#open-issues">open</a>
+•
+<a href="#issues-resolved">resolved</a>
+•
+<a href="#issues-and-prs-months-summary">summary</a>
+•
+<a href="#issue-and-pr-pulse">month-by-month</a>
+•
+<a href="#open-issues-age-stats">age stats</a>
+•
+<a href="#closed-issues-ttc-stats">time-to-close stats</a>
+•
+graphs:
+<a href="#issues_closed_opened">opened/closed</a>
+•
+<a href="#increase_decrease">increase/decrease</a>
+
+<p class="links">
+PRs:
+<a href="#open-prs">open</a>
+•
+<a href="#prs-merged-closed">merged/closed</a>
+•
+<a href="#issues-and-prs-months-summary">summary</a>
+•
+<a href="#issue-and-pr-pulse">month-by-month</a>
+•
+<a href="#open-prs-age-stats">age stats</a>
+•
+<a href="#merged-closed-prs-ttc-stats">time-to-close stats</a>
+•
+graphs:
+<a href="#PRs_merged_closed_opened">opened/merged/closed</a>
+•
+<a href="#increase_decrease">increase/decrease</a>
+<h2 id="committer-pulse"><a href="#committer-pulse"><span>🔗</span>
+  Committer pulse</a></h2>
+<div>
+  <table id="committers-table">
+    <thead>
+      <tr>
+        <th colspan=4>Committers
+        <th rowspan=3>Mo-<br>nthly<br>com-<br>mits
+        <th rowspan=3>Month range
+      <tr>
+        <th colspan=3>Monthly
+        <th rowspan=2>Cu-<br>mula-<br>tive
+      <tr>
+        <th>New
+        <th>Uniq
+        <th>%New
+    </thead>
+    <tr>
+      <td>0
+      <td>12
+      <td>0
+      <td>567
+      <td>55
+    <td>Apr 15 – May 15 2023 ending 12mo back
+    <tr>
+      <td>2
+      <td>13
+      <td>15
+      <td>569
+      <td>78
+    <td>May 15 – Jun 15 2023 ending 11mo back
+    <tr>
+      <td>5
+      <td>23
+      <td>21
+      <td>574
+      <td>168
+    <td>Jun 15 – Jul 15 2023 ending 10mo back
+    <tr>
+      <td>1
+      <td>23
+      <td>4
+      <td>575
+      <td>146
+    <td>Jul 15 – Aug 15 2023 ending 9mo back
+    <tr>
+      <td>3
+      <td>18
+      <td>16
+      <td>578
+      <td>101
+    <td>Aug 15 – Sep 15 2023 ending 8mo back
+    <tr>
+      <td>3
+      <td>20
+      <td>15
+      <td>581
+      <td>138
+    <td>Sep 15 – Oct 15 2023 ending 7mo back
+    <tr>
+      <td>0
+      <td>12
+      <td>0
+      <td>581
+      <td>53
+    <td>Oct 15 – Nov 15 2023 ending 6mo back
+    <tr>
+      <td>1
+      <td>15
+      <td>6
+      <td>582
+      <td>73
+    <td>Nov 15 – Dec 15 2023 ending 5mo back
+    <tr>
+      <td>0
+      <td>11
+      <td>0
+      <td>582
+      <td>43
+    <td>Dec 15 – Jan 15 2024 ending 4mo back
+    <tr>
+      <td>0
+      <td>2
+      <td>0
+      <td>582
+      <td>2
+    <td>Jan 15 – Feb 15 2024 ending 3mo back
+    <tr>
+      <td>0
+      <td>0
+      <td>0
+      <td>582
+      <td>0
+    <td>Feb 15 – Mar 15 2024 ending 2mo back
+    <tr>
+      <td>0
+      <td>1
+      <td>0
+      <td>582
+      <td>1
+    <td>Mar 15 – Apr 15 2024 ending 1mo back
+    <tr>
+      <td>0
+      <td>14
+      <td>0
+      <td>582
+      <td>81
+    <td>Apr 15 – May 15 2024 ending 06:33 UTC
+  </table>
+<svg 
+ width="668" height="440"
+ viewBox="0 0 668 440"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Committerspermonth</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="668" height="440" fill="none"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.167' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.167' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.167' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.167' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.167' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.167' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.167' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.167' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='white' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,375.20 L86.40,375.20  '/>	<g transform="translate(63.20,380.40)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,314.56 L86.40,314.56  '/>	<g transform="translate(63.20,319.76)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,253.92 L86.40,253.92  '/>	<g transform="translate(63.20,259.12)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,193.29 L86.40,193.29  '/>	<g transform="translate(63.20,198.49)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 3</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,132.65 L86.40,132.65  '/>	<g transform="translate(63.20,137.85)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,72.01 L86.40,72.01  '/>	<g transform="translate(63.20,77.21)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,375.20 L567.19,363.20 M567.19,72.01 L567.19,84.01  '/>	<g transform="translate(567.19,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M485.06,375.20 L485.06,363.20 M485.06,72.01 L485.06,84.01  '/>	<g transform="translate(485.06,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M402.93,375.20 L402.93,363.20 M402.93,72.01 L402.93,84.01  '/>	<g transform="translate(402.93,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M320.80,375.20 L320.80,363.20 M320.80,72.01 L320.80,84.01  '/>	<g transform="translate(320.80,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 6</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M238.66,375.20 L238.66,363.20 M238.66,72.01 L238.66,84.01  '/>	<g transform="translate(238.66,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 8</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M156.53,375.20 L156.53,363.20 M156.53,72.01 L156.53,84.01  '/>	<g transform="translate(156.53,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,375.20 L74.40,363.20 M74.40,72.01 L74.40,84.01  '/>	<g transform="translate(74.40,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 12</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,375.20 L555.19,375.20  '/>	<g transform="translate(578.39,380.40)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,314.56 L555.19,314.56  '/>	<g transform="translate(578.39,319.76)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,253.92 L555.19,253.92  '/>	<g transform="translate(578.39,259.12)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,193.29 L555.19,193.29  '/>	<g transform="translate(578.39,198.49)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 15</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,132.65 L555.19,132.65  '/>	<g transform="translate(578.39,137.85)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 20</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,72.01 L555.19,72.01  '/>	<g transform="translate(578.39,77.21)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 25</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,72.01 L74.40,375.20 L567.19,375.20 L567.19,72.01 L74.40,72.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="Committerspermonth_plot_1" ><title>New committers</title>
+<g fill="none" color="white" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 34, 139,  34)'  d='M567.19,375.20 L526.12,375.20 L485.06,375.20 L443.99,375.20 L402.93,375.20 L361.86,314.56 L320.80,375.20 L279.73,193.29
+		L238.66,193.29 L197.60,314.56 L156.53,72.01 L115.47,253.92 L74.40,375.20  '/>	<use xlink:href='#gpPt6' transform='translate(567.19,375.20) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(526.12,375.20) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(485.06,375.20) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(443.99,375.20) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(402.93,375.20) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(361.86,314.56) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(320.80,375.20) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(279.73,193.29) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(238.66,193.29) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(197.60,314.56) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(156.53,72.01) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(115.47,253.92) scale(3.00)' color='rgb( 34, 139,  34)'/>
+	<use xlink:href='#gpPt6' transform='translate(74.40,375.20) scale(3.00)' color='rgb( 34, 139,  34)'/>
+</g>
+	</g>
+	<g id="Committerspermonth_plot_2" ><title>Total committers</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(233, 150, 122)'  d='M567.19,205.41 L526.12,363.07 L485.06,375.20 L443.99,350.94 L402.93,241.80 L361.86,193.29 L320.80,229.67 L279.73,132.65
+		L238.66,156.90 L197.60,96.27 L156.53,96.27 L115.47,217.54 L74.40,229.67  '/>	<use xlink:href='#gpPt6' transform='translate(567.19,205.41) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(526.12,363.07) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(485.06,375.20) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(443.99,350.94) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(402.93,241.80) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(361.86,193.29) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(320.80,229.67) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(279.73,132.65) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(238.66,156.90) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(197.60,96.27) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(156.53,96.27) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(115.47,217.54) scale(3.00)' color='rgb(233, 150, 122)'/>
+	<use xlink:href='#gpPt6' transform='translate(74.40,229.67) scale(3.00)' color='rgb(233, 150, 122)'/>
+</g>
+	</g>
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(204, 204, 204)' fill-opacity='0.50'  points = '85.60,120.01 282.18,120.01 282.18,84.01 85.60,84.01 '/>
+	</g>
+	<g id="Committerspermonth_plot_1" ><title>New committers</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(219.84,96.91)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >New committers</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 34, 139,  34)'  d='M228.23,93.01 L273.79,93.01  '/>	<use xlink:href='#gpPt6' transform='translate(251.01,93.01) scale(3.00)' color='rgb( 34, 139,  34)'/>
+</g>
+	</g>
+	<g id="Committerspermonth_plot_2" ><title>Total committers</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(219.84,114.91)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >Total committers</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(233, 150, 122)'  d='M228.23,111.01 L273.79,111.01  '/>	<use xlink:href='#gpPt6' transform='translate(251.01,111.01) scale(3.00)' color='rgb(233, 150, 122)'/>
+</g>
+	</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,72.01 L74.40,375.20 L567.19,375.20 L567.19,72.01 L74.40,72.01 Z  '/>	<g transform="translate(36.80,223.61) rotate(270.00)" stroke="none" fill="rgb(34,139,34)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >New committers</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(618.79,223.61) rotate(-270.00)" stroke="none" fill="rgb(233,150,122)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Total committers</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(320.79,428.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Months before 15 May 2024</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(320.79,41.21)" stroke="none" fill="rgb(50,205,50)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial"  font-weight="bold" ><a id='committers_per_month' href='#committers_per_month' fill='#32cd32'><tspan>🔗</tspan> Committers per month – mongodb/docs</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
+  <div class="months_summary" id="committers-months-summary">
+  <h4><a href="#committers-months-summary"><span>🔗</span>
+    For the last 13 months:</a></h4>
+    <ul>
+      <li>1 new committers per month on average.
+      <li>12 total active committers per month on average.
+      <li>8 percent of committers were new committers.
+      <li>72 commits per month on average.
+      <li>6.00 commits per committer
+      per month on average.
+    </ul>
+    <p>Cumulative total committers grew by
+    15
+    (from 567 to 582) in 12
+ months.
+  </div>
+</div>
+<svg 
+ width="668" height="440"
+ viewBox="0 0 668 440"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Totalcommittersandnew</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="668" height="440" fill="none"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.167' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.167' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.167' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.167' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.167' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.167' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.167' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.167' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='white' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,375.20 L97.60,375.20  '/>	<g transform="translate(74.40,380.40)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,314.56 L97.60,314.56  '/>	<g transform="translate(74.40,319.76)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,253.92 L97.60,253.92  '/>	<g transform="translate(74.40,259.12)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,193.29 L97.60,193.29  '/>	<g transform="translate(74.40,198.49)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 15</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,132.65 L97.60,132.65  '/>	<g transform="translate(74.40,137.85)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 20</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,72.01 L97.60,72.01  '/>	<g transform="translate(74.40,77.21)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 25</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,375.20 L567.19,363.20 M567.19,72.01 L567.19,84.01  '/>	<g transform="translate(567.19,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M486.93,375.20 L486.93,363.20 M486.93,72.01 L486.93,84.01  '/>	<g transform="translate(486.93,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M406.66,375.20 L406.66,363.20 M406.66,72.01 L406.66,84.01  '/>	<g transform="translate(406.66,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M326.40,375.20 L326.40,363.20 M326.40,72.01 L326.40,84.01  '/>	<g transform="translate(326.40,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 6</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M246.13,375.20 L246.13,363.20 M246.13,72.01 L246.13,84.01  '/>	<g transform="translate(246.13,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 8</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M165.87,375.20 L165.87,363.20 M165.87,72.01 L165.87,84.01  '/>	<g transform="translate(165.87,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,375.20 L85.60,363.20 M85.60,72.01 L85.60,84.01  '/>	<g transform="translate(85.60,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 12</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,375.20 L555.19,375.20  '/>	<g transform="translate(578.39,380.40)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 566</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,337.30 L555.19,337.30  '/>	<g transform="translate(578.39,342.50)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 568</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,299.40 L555.19,299.40  '/>	<g transform="translate(578.39,304.60)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 570</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,261.50 L555.19,261.50  '/>	<g transform="translate(578.39,266.70)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 572</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,223.60 L555.19,223.60  '/>	<g transform="translate(578.39,228.80)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 574</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,185.71 L555.19,185.71  '/>	<g transform="translate(578.39,190.91)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 576</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,147.81 L555.19,147.81  '/>	<g transform="translate(578.39,153.01)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 578</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,109.91 L555.19,109.91  '/>	<g transform="translate(578.39,115.11)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 580</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,72.01 L555.19,72.01  '/>	<g transform="translate(578.39,77.21)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 582</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,72.01 L85.60,375.20 L567.19,375.20 L567.19,72.01 L85.60,72.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="Totalcommittersandnew_plot_1" ><title>New commiters percentage</title>
+<g fill="none" color="white" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 128, 255)'  d='M567.19,375.20 L527.06,375.20 L486.93,375.20 L446.79,375.20 L406.66,375.20 L366.53,302.43 L326.40,375.20 L286.26,193.29
+		L246.13,181.16 L206.00,326.69 L165.87,120.52 L125.73,193.29 L85.60,375.20  '/>	<use xlink:href='#gpPt6' transform='translate(567.19,375.20) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(527.06,375.20) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(486.93,375.20) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(446.79,375.20) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(406.66,375.20) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(366.53,302.43) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(326.40,375.20) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(286.26,193.29) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(246.13,181.16) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(206.00,326.69) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(165.87,120.52) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(125.73,193.29) scale(3.00)' color='rgb(  0, 128, 255)'/>
+	<use xlink:href='#gpPt6' transform='translate(85.60,375.20) scale(3.00)' color='rgb(  0, 128, 255)'/>
+</g>
+	</g>
+	<g id="Totalcommittersandnew_plot_2" ><title>Cumulative total committers</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(255, 165,   0)'  d='M567.19,72.01 L527.06,72.01 L486.93,72.01 L446.79,72.01 L406.66,72.01 L366.53,72.01 L326.40,90.96 L286.26,90.96
+		L246.13,147.81 L206.00,204.66 L165.87,223.60 L125.73,318.35 L85.60,356.25  '/>	<use xlink:href='#gpPt6' transform='translate(567.19,72.01) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(527.06,72.01) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(486.93,72.01) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(446.79,72.01) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(406.66,72.01) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(366.53,72.01) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(326.40,90.96) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(286.26,90.96) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(246.13,147.81) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(206.00,204.66) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(165.87,223.60) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(125.73,318.35) scale(3.00)' color='rgb(255, 165,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(85.60,356.25) scale(3.00)' color='rgb(255, 165,   0)'/>
+</g>
+	</g>
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(204, 204, 204)' fill-opacity='0.50'  points = '96.80,120.01 385.67,120.01 385.67,84.01 96.80,84.01 '/>
+	</g>
+	<g id="Totalcommittersandnew_plot_1" ><title>New commiters percentage</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(323.33,96.91)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >New commiters percentage</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 128, 255)'  d='M331.72,93.01 L377.28,93.01  '/>	<use xlink:href='#gpPt6' transform='translate(354.50,93.01) scale(3.00)' color='rgb(  0, 128, 255)'/>
+</g>
+	</g>
+	<g id="Totalcommittersandnew_plot_2" ><title>Cumulative total committers</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(323.33,114.91)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >Cumulative total committers</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(255, 165,   0)'  d='M331.72,111.01 L377.28,111.01  '/>	<use xlink:href='#gpPt6' transform='translate(354.50,111.01) scale(3.00)' color='rgb(255, 165,   0)'/>
+</g>
+	</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M85.60,72.01 L85.60,375.20 L567.19,375.20 L567.19,72.01 L85.60,72.01 Z  '/>	<g transform="translate(36.80,223.61) rotate(270.00)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >New commiters percentage</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(629.99,223.61) rotate(-270.00)" stroke="none" fill="rgb(255,165,0)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Cumulative total committers</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(326.39,428.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Months before 15 May 2024</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(326.39,41.21)" stroke="none" fill="rgb(50,205,50)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial"  font-weight="bold" ><a id='total_committers' href='#total_committers' fill='#32cd32'><tspan>🔗</tspan> Total committers and % new – mongodb/docs</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
+<svg 
+ width="668" height="440"
+ viewBox="0 0 668 440"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Commitspermonth</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="668" height="440" fill="none"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.167' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.167' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.167' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.167' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.167' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.167' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.167' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.167' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='white' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,375.20 L108.80,375.20 M634.39,375.20 L622.39,375.20  '/>	<g transform="translate(85.60,380.40)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,341.51 L108.80,341.51 M634.39,341.51 L622.39,341.51  '/>	<g transform="translate(85.60,346.71)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 20</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,307.82 L108.80,307.82 M634.39,307.82 L622.39,307.82  '/>	<g transform="translate(85.60,313.02)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 40</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,274.14 L108.80,274.14 M634.39,274.14 L622.39,274.14  '/>	<g transform="translate(85.60,279.34)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 60</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,240.45 L108.80,240.45 M634.39,240.45 L622.39,240.45  '/>	<g transform="translate(85.60,245.65)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 80</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,206.76 L108.80,206.76 M634.39,206.76 L622.39,206.76  '/>	<g transform="translate(85.60,211.96)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 100</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,173.07 L108.80,173.07 M634.39,173.07 L622.39,173.07  '/>	<g transform="translate(85.60,178.27)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 120</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,139.39 L108.80,139.39 M634.39,139.39 L622.39,139.39  '/>	<g transform="translate(85.60,144.59)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 140</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,105.70 L108.80,105.70 M634.39,105.70 L622.39,105.70  '/>	<g transform="translate(85.60,110.90)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 160</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,72.01 L108.80,72.01 M634.39,72.01 L622.39,72.01  '/>	<g transform="translate(85.60,77.21)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 180</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M634.39,375.20 L634.39,363.20 M634.39,72.01 L634.39,84.01  '/>	<g transform="translate(634.39,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M544.79,375.20 L544.79,363.20 M544.79,72.01 L544.79,84.01  '/>	<g transform="translate(544.79,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M455.19,375.20 L455.19,363.20 M455.19,72.01 L455.19,84.01  '/>	<g transform="translate(455.19,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M365.60,375.20 L365.60,363.20 M365.60,72.01 L365.60,84.01  '/>	<g transform="translate(365.60,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 6</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M276.00,375.20 L276.00,363.20 M276.00,72.01 L276.00,84.01  '/>	<g transform="translate(276.00,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 8</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M186.40,375.20 L186.40,363.20 M186.40,72.01 L186.40,84.01  '/>	<g transform="translate(186.40,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,375.20 L96.80,363.20 M96.80,72.01 L96.80,84.01  '/>	<g transform="translate(96.80,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 12</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,72.01 L96.80,375.20 L634.39,375.20 L634.39,72.01 L96.80,72.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="Commitspermonth_plot_1"  fill="none"><title>Commitspermonth_plot_1</title>
+<g fill="none" color="white" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M634.39,238.76 L589.59,373.52 L544.79,375.20 L499.99,371.83 L455.19,302.77 L410.39,252.24 L365.60,285.93 L320.80,142.75
+		L276.00,205.08 L231.20,129.28 L186.40,92.22 L141.60,243.82 L96.80,282.56  '/>	<use xlink:href='#gpPt6' transform='translate(634.39,238.76) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(589.59,373.52) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(544.79,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(499.99,371.83) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(455.19,302.77) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(410.39,252.24) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(365.60,285.93) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(320.80,142.75) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(276.00,205.08) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(231.20,129.28) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(186.40,92.22) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(141.60,243.82) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(96.80,282.56) scale(3.00)' color='rgb(148,   0, 211)'/>
+</g>
+	</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,72.01 L96.80,375.20 L634.39,375.20 L634.39,72.01 L96.80,72.01 Z  '/>	<g transform="translate(36.80,223.61) rotate(270.00)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Commits per month</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(365.59,428.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Months before 15 May 2024</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(365.59,41.21)" stroke="none" fill="rgb(50,205,50)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial"  font-weight="bold" ><a id='commits_per_month' href='#commits_per_month' fill='#32cd32'><tspan>🔗</tspan> Commits per month – mongodb/docs</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
+<h2 id="issue-and-pr-pulse"><a href="#issue-and-pr-pulse"><span>🔗</span>
+  Issue and PR pulse</a></h2>
+<p><b>Note: The GitHub issue tracker for this repo is disabled.
+   This snapshot includes data for PRs only.</b>
+<div>
+  <table id="issues-and-prs-table">
+    <thead>
+      <tr>
+        <th colspan=3>Issues
+        <th colspan=4>PRs
+        <th rowspan=2>Month range
+      <tr>
+        <th>Clsd
+        <th>Opnd
+        <th>+ -
+        <th>Mrgd
+        <th>Clsd
+        <th>Opnd
+        <th>+ -
+    </thead>
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-04-16..2023-05-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-04-16..2023-05-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-04-16..2023-05-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-04-16..2023-05-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-04-16..2023-05-15">   1</a>
+      <td>  +1
+    <td>Apr 15 – May 15 2023 ending 12mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-05-16..2023-06-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-05-16..2023-06-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-05-16..2023-06-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-05-16..2023-06-15">   1</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-05-16..2023-06-15">   1</a>
+      <td>   0
+    <td>May 15 – Jun 15 2023 ending 11mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-06-16..2023-07-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-06-16..2023-07-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-06-16..2023-07-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-06-16..2023-07-15">   1</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-06-16..2023-07-15">   1</a>
+      <td>   0
+    <td>Jun 15 – Jul 15 2023 ending 10mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-07-16..2023-08-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-07-16..2023-08-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-07-16..2023-08-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-07-16..2023-08-15">   2</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-07-16..2023-08-15">   0</a>
+      <td>  -2
+    <td>Jul 15 – Aug 15 2023 ending 9mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-08-16..2023-09-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-08-16..2023-09-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-08-16..2023-09-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-08-16..2023-09-15">   1</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-08-16..2023-09-15">   0</a>
+      <td>  -1
+    <td>Aug 15 – Sep 15 2023 ending 8mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-09-16..2023-10-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-09-16..2023-10-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-09-16..2023-10-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-09-16..2023-10-15">   2</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-09-16..2023-10-15">   2</a>
+      <td>   0
+    <td>Sep 15 – Oct 15 2023 ending 7mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-10-16..2023-11-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-10-16..2023-11-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-10-16..2023-11-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-10-16..2023-11-15">   1</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-10-16..2023-11-15">   4</a>
+      <td>  +3
+    <td>Oct 15 – Nov 15 2023 ending 6mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-11-16..2023-12-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-11-16..2023-12-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-11-16..2023-12-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-11-16..2023-12-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-11-16..2023-12-15">   1</a>
+      <td>  +1
+    <td>Nov 15 – Dec 15 2023 ending 5mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2023-12-16..2024-01-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2023-12-16..2024-01-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2023-12-16..2024-01-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2023-12-16..2024-01-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2023-12-16..2024-01-15">   2</a>
+      <td>  +2
+    <td>Dec 15 – Jan 15 2024 ending 4mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2024-01-16..2024-02-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2024-01-16..2024-02-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2024-01-16..2024-02-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2024-01-16..2024-02-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2024-01-16..2024-02-15">   0</a>
+      <td>   0
+    <td>Jan 15 – Feb 15 2024 ending 3mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2024-02-16..2024-03-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2024-02-16..2024-03-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2024-02-16..2024-03-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2024-02-16..2024-03-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2024-02-16..2024-03-15">   1</a>
+      <td>  +1
+    <td>Feb 15 – Mar 15 2024 ending 2mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2024-03-16..2024-04-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2024-03-16..2024-04-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2024-03-16..2024-04-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2024-03-16..2024-04-15">   1</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2024-03-16..2024-04-15">   2</a>
+      <td>  +1
+    <td>Mar 15 – Apr 15 2024 ending 1mo back
+    <tr>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+closed:2024-04-16..2024-05-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:issue+created:2024-04-16..2024-05-15">   0</a>
+      <td>   0
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+merged:2024-04-16..2024-05-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+is:unmerged+closed:2024-04-16..2024-05-15">   0</a>
+      <td><a href="https://github.com/search?q=repo:mongodb/docs+type:pr+created:2024-04-16..2024-05-15">   0</a>
+      <td>   0
+    <td>Apr 15 – May 15 2024 ending 06:33 UTC
+  </table>
+<svg 
+ width="668" height="440"
+ viewBox="0 0 668 440"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>IncreasedecreaseinopenPRs</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="668" height="440" fill="none"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.167' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.167' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.167' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.167' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.167' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.167' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.167' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.167' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='white' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,375.20 L86.40,375.20 M634.39,375.20 L622.39,375.20  '/>	<g transform="translate(63.20,380.40)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >-2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,314.56 L86.40,314.56 M634.39,314.56 L622.39,314.56  '/>	<g transform="translate(63.20,319.76)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >-1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,253.92 L86.40,253.92 M634.39,253.92 L622.39,253.92  '/>	<g transform="translate(63.20,259.12)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,193.29 L86.40,193.29 M634.39,193.29 L622.39,193.29  '/>	<g transform="translate(63.20,198.49)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,132.65 L86.40,132.65 M634.39,132.65 L622.39,132.65  '/>	<g transform="translate(63.20,137.85)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,72.01 L86.40,72.01 M634.39,72.01 L622.39,72.01  '/>	<g transform="translate(63.20,77.21)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 3</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M634.39,375.20 L634.39,363.20 M634.39,72.01 L634.39,84.01  '/>	<g transform="translate(634.39,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M541.06,375.20 L541.06,363.20 M541.06,72.01 L541.06,84.01  '/>	<g transform="translate(541.06,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M447.73,375.20 L447.73,363.20 M447.73,72.01 L447.73,84.01  '/>	<g transform="translate(447.73,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M354.40,375.20 L354.40,363.20 M354.40,72.01 L354.40,84.01  '/>	<g transform="translate(354.40,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 6</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M261.06,375.20 L261.06,363.20 M261.06,72.01 L261.06,84.01  '/>	<g transform="translate(261.06,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 8</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M167.73,375.20 L167.73,363.20 M167.73,72.01 L167.73,84.01  '/>	<g transform="translate(167.73,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,375.20 L74.40,363.20 M74.40,72.01 L74.40,84.01  '/>	<g transform="translate(74.40,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 12</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,72.01 L74.40,375.20 L634.39,375.20 L634.39,72.01 L74.40,72.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="IncreasedecreaseinopenPRs_plot_1"  fill="none"><title>IncreasedecreaseinopenPRs_plot_1</title>
+<g fill="none" color="white" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M634.39,253.92 L587.72,193.29 L541.06,193.29 L494.39,253.92 L447.73,132.65 L401.06,193.29 L354.40,72.01 L307.73,253.92
+		L261.06,314.56 L214.40,375.20 L167.73,253.92 L121.07,253.92 L74.40,193.29  '/>	<use xlink:href='#gpPt6' transform='translate(634.39,253.92) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(587.72,193.29) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(541.06,193.29) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(494.39,253.92) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(447.73,132.65) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(401.06,193.29) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(354.40,72.01) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(307.73,253.92) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(261.06,314.56) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(214.40,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(167.73,253.92) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(121.07,253.92) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(74.40,193.29) scale(3.00)' color='rgb(148,   0, 211)'/>
+</g>
+	</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M74.40,72.01 L74.40,375.20 L634.39,375.20 L634.39,72.01 L74.40,72.01 Z  '/>	<g transform="translate(36.80,223.61) rotate(270.00)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Increase/decrease in open PRs</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(354.39,428.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Months before 15 May 2024</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(354.39,41.21)" stroke="none" fill="rgb(50,205,50)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial"  font-weight="bold" ><a id='increase_decrease' href='#increase_decrease' fill='#32cd32'><tspan>🔗</tspan> Increase/decrease in open PRs – mongodb/docs</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
+  <div class="months_summary" id="issues-and-prs-months-summary">
+  <h4><a href="#issues-and-prs-months-summary"><span>🔗</span>
+    For the last 13 months:</a></h4>
+    <ul>
+      
+      <li>0
+       percent net closure rate for PRs (PRs merged/closed during this time
+       period vs PRs opened).
+    </ul>
+    <ul>
+      <li>0 PRs merged per month on average.
+      <li>0 percent merged PRs / commits ratio
+          (avg. 0 merged PRs vs avg. 72 commits).
+      <li>0 PRs closed (unmerged) per month on average.
+      <li>1 PRs opened per month on average.
+      <li>0 PR increase in open PRs per
+          month on average.
+    </ul>
+    <ul>
+    <li>+6 PR increase
+    in open PRs overall.
+  </ul>
+</div> <!-- end of issues summary section -->
+</div><!-- end of issues upper container -->
+<svg 
+ width="668" height="440"
+ viewBox="0 0 668 440"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>PRsmergedclosedandopened</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="668" height="440" fill="none"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.167' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.167' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.167' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.167' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.167' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.167' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.167' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.167' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='white' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,375.20 L108.80,375.20  '/>	<g transform="translate(85.60,380.40)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,299.40 L108.80,299.40  '/>	<g transform="translate(85.60,304.60)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,223.60 L108.80,223.60  '/>	<g transform="translate(85.60,228.80)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,147.81 L108.80,147.81  '/>	<g transform="translate(85.60,153.01)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,72.01 L108.80,72.01  '/>	<g transform="translate(85.60,77.21)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,375.20 L567.19,363.20 M567.19,72.01 L567.19,84.01  '/>	<g transform="translate(567.19,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M488.79,375.20 L488.79,363.20 M488.79,72.01 L488.79,84.01  '/>	<g transform="translate(488.79,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M410.39,375.20 L410.39,363.20 M410.39,72.01 L410.39,84.01  '/>	<g transform="translate(410.39,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M332.00,375.20 L332.00,363.20 M332.00,72.01 L332.00,84.01  '/>	<g transform="translate(332.00,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 6</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M253.60,375.20 L253.60,363.20 M253.60,72.01 L253.60,84.01  '/>	<g transform="translate(253.60,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 8</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M175.20,375.20 L175.20,363.20 M175.20,72.01 L175.20,84.01  '/>	<g transform="translate(175.20,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,375.20 L96.80,363.20 M96.80,72.01 L96.80,84.01  '/>	<g transform="translate(96.80,404.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" > 12</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,375.20 L555.19,375.20  '/>	<g transform="translate(578.39,380.40)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,337.30 L555.19,337.30  '/>	<g transform="translate(578.39,342.50)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,299.40 L555.19,299.40  '/>	<g transform="translate(578.39,304.60)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,261.50 L555.19,261.50  '/>	<g transform="translate(578.39,266.70)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,223.60 L555.19,223.60  '/>	<g transform="translate(578.39,228.80)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,185.71 L555.19,185.71  '/>	<g transform="translate(578.39,190.91)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 2.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,147.81 L555.19,147.81  '/>	<g transform="translate(578.39,153.01)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 3</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,109.91 L555.19,109.91  '/>	<g transform="translate(578.39,115.11)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 3.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M567.19,72.01 L555.19,72.01  '/>	<g transform="translate(578.39,77.21)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="start">
+		<text><tspan font-family="Arial" > 4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,72.01 L96.80,375.20 L567.19,375.20 L567.19,72.01 L96.80,72.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="PRsmergedclosedandopened_plot_1" ><title>PRs merged+closed</title>
+<g fill="none" color="white" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M567.19,375.20 L527.99,223.60 L488.79,375.20 L449.59,375.20 L410.39,375.20 L371.19,375.20 L332.00,223.60 L292.80,72.01
+		L253.60,223.60 L214.40,72.01 L175.20,223.60 L136.00,223.60 L96.80,375.20  '/>	<use xlink:href='#gpPt6' transform='translate(567.19,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(527.99,223.60) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(488.79,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(449.59,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(410.39,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(371.19,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(332.00,223.60) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(292.80,72.01) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(253.60,223.60) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(214.40,72.01) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(175.20,223.60) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(136.00,223.60) scale(3.00)' color='rgb(148,   0, 211)'/>
+	<use xlink:href='#gpPt6' transform='translate(96.80,375.20) scale(3.00)' color='rgb(148,   0, 211)'/>
+</g>
+	</g>
+	<g id="PRsmergedclosedandopened_plot_2" ><title>PRs opened</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240,  50,  50)'  d='M567.19,375.20 L527.99,223.60 L488.79,299.40 L449.59,375.20 L410.39,223.60 L371.19,299.40 L332.00,72.01 L292.80,223.60
+		L253.60,375.20 L214.40,375.20 L175.20,299.40 L136.00,299.40 L96.80,299.40  '/>	<use xlink:href='#gpPt6' transform='translate(567.19,375.20) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(527.99,223.60) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(488.79,299.40) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(449.59,375.20) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(410.39,223.60) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(371.19,299.40) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(332.00,72.01) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(292.80,223.60) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(253.60,375.20) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(214.40,375.20) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(175.20,299.40) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(136.00,299.40) scale(3.00)' color='rgb(240,  50,  50)'/>
+	<use xlink:href='#gpPt6' transform='translate(96.80,299.40) scale(3.00)' color='rgb(240,  50,  50)'/>
+</g>
+	</g>
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(204, 204, 204)' fill-opacity='0.50'  points = '108.00,120.01 312.97,120.01 312.97,84.01 108.00,84.01 '/>
+	</g>
+	<g id="PRsmergedclosedandopened_plot_1" ><title>PRs merged+closed</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(250.63,96.91)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >PRs merged+closed</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M259.02,93.01 L304.58,93.01  '/>	<use xlink:href='#gpPt6' transform='translate(281.80,93.01) scale(3.00)' color='rgb(148,   0, 211)'/>
+</g>
+	</g>
+	<g id="PRsmergedclosedandopened_plot_2" ><title>PRs opened</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(250.63,114.91)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >PRs opened</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240,  50,  50)'  d='M259.02,111.01 L304.58,111.01  '/>	<use xlink:href='#gpPt6' transform='translate(281.80,111.01) scale(3.00)' color='rgb(240,  50,  50)'/>
+</g>
+	</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M96.80,72.01 L96.80,375.20 L567.19,375.20 L567.19,72.01 L96.80,72.01 Z  '/>	<g transform="translate(36.80,223.61) rotate(270.00)" stroke="none" fill="rgb(148,0,211)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >PRs merged+closed</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(629.99,223.61) rotate(-270.00)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >PRs opened</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(331.99,428.40)" stroke="none" fill="black" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Months before 15 May 2024</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(331.99,41.21)" stroke="none" fill="rgb(50,205,50)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial"  font-weight="bold" ><a id='PRs_merged_closed_opened' href='#PRs_merged_closed_opened' fill='#32cd32'><tspan>🔗</tspan> PRs merged/closed and opened – mongodb/docs</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
+<div>
+    <div class="bargraph">
+    <h3 id="open-prs"><a href="#open-prs"><span>🔗</span>
+      Open PRs</a></h3>
+    <p>
+    <a href="https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:%3C=2024-05-15">132 PRs</a>
+    were open as of 15 May 2024
+    <p>132.00 times as many
+    PRs currently open as the<br>
+    average number of PRs opened per month.
+    <p>46.21 times as many
+    closed PRs as open PRs.
+    <p class="svg">
+<svg 
+ width="668" height="1484"
+ viewBox="0 0 668 1484"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title></title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="668" height="1484" fill="none"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.167' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.167' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.167' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.167' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.167' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.167' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.167' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.167' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='white' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1450.71 M634.39,1450.71  '/>	<g transform="translate(119.20,1455.91)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2024-03&s=updated' fill='#0080ff'>2024-03</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1423.48 M634.39,1423.48  '/>	<g transform="translate(119.20,1428.68)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2024-02&s=updated' fill='#0080ff'>2024-02</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1396.25 M634.39,1396.25  '/>	<g transform="translate(119.20,1401.45)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-12&s=updated' fill='#0080ff'>2023-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1369.03 M634.39,1369.03  '/>	<g transform="translate(119.20,1374.23)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-10&s=updated' fill='#0080ff'>2023-10</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1341.80 M634.39,1341.80  '/>	<g transform="translate(119.20,1347.00)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-09&s=updated' fill='#0080ff'>2023-09</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1314.57 M634.39,1314.57  '/>	<g transform="translate(119.20,1319.77)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-06&s=updated' fill='#0080ff'>2023-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1287.35 M634.39,1287.35  '/>	<g transform="translate(119.20,1292.55)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-04&s=updated' fill='#0080ff'>2023-04</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1260.12 M634.39,1260.12  '/>	<g transform="translate(119.20,1265.32)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-03&s=updated' fill='#0080ff'>2023-03</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1232.89 M634.39,1232.89  '/>	<g transform="translate(119.20,1238.09)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-02&s=updated' fill='#0080ff'>2023-02</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1205.67 M634.39,1205.67  '/>	<g transform="translate(119.20,1210.87)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2023-01&s=updated' fill='#0080ff'>2023-01</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1178.44 M634.39,1178.44  '/>	<g transform="translate(119.20,1183.64)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-12&s=updated' fill='#0080ff'>2022-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1151.21 M634.39,1151.21  '/>	<g transform="translate(119.20,1156.41)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-11&s=updated' fill='#0080ff'>2022-11</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1123.98 M634.39,1123.98  '/>	<g transform="translate(119.20,1129.18)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-10&s=updated' fill='#0080ff'>2022-10</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1096.76 M634.39,1096.76  '/>	<g transform="translate(119.20,1101.96)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-09&s=updated' fill='#0080ff'>2022-09</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1069.53 M634.39,1069.53  '/>	<g transform="translate(119.20,1074.73)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-08&s=updated' fill='#0080ff'>2022-08</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1042.30 M634.39,1042.30  '/>	<g transform="translate(119.20,1047.50)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-07&s=updated' fill='#0080ff'>2022-07</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,1015.08 M634.39,1015.08  '/>	<g transform="translate(119.20,1020.28)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-06&s=updated' fill='#0080ff'>2022-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,987.85 M634.39,987.85  '/>	<g transform="translate(119.20,993.05)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-04&s=updated' fill='#0080ff'>2022-04</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,960.62 M634.39,960.62  '/>	<g transform="translate(119.20,965.82)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-03&s=updated' fill='#0080ff'>2022-03</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,933.39 M634.39,933.39  '/>	<g transform="translate(119.20,938.59)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-02&s=updated' fill='#0080ff'>2022-02</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,906.17 M634.39,906.17  '/>	<g transform="translate(119.20,911.37)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2022-01&s=updated' fill='#0080ff'>2022-01</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,878.94 M634.39,878.94  '/>	<g transform="translate(119.20,884.14)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2021-12&s=updated' fill='#0080ff'>2021-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,851.71 M634.39,851.71  '/>	<g transform="translate(119.20,856.91)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2021-09&s=updated' fill='#0080ff'>2021-09</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,824.49 M634.39,824.49  '/>	<g transform="translate(119.20,829.69)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2021-08&s=updated' fill='#0080ff'>2021-08</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,797.26 M634.39,797.26  '/>	<g transform="translate(119.20,802.46)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2021-06&s=updated' fill='#0080ff'>2021-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,770.03 M634.39,770.03  '/>	<g transform="translate(119.20,775.23)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2021-05&s=updated' fill='#0080ff'>2021-05</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,742.80 M634.39,742.80  '/>	<g transform="translate(119.20,748.00)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2021-02&s=updated' fill='#0080ff'>2021-02</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,715.58 M634.39,715.58  '/>	<g transform="translate(119.20,720.78)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2021-01&s=updated' fill='#0080ff'>2021-01</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,688.35 M634.39,688.35  '/>	<g transform="translate(119.20,693.55)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-12&s=updated' fill='#0080ff'>2020-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,661.12 M634.39,661.12  '/>	<g transform="translate(119.20,666.32)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-11&s=updated' fill='#0080ff'>2020-11</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,633.90 M634.39,633.90  '/>	<g transform="translate(119.20,639.10)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-10&s=updated' fill='#0080ff'>2020-10</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,606.67 M634.39,606.67  '/>	<g transform="translate(119.20,611.87)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-09&s=updated' fill='#0080ff'>2020-09</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,579.44 M634.39,579.44  '/>	<g transform="translate(119.20,584.64)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-08&s=updated' fill='#0080ff'>2020-08</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,552.22 M634.39,552.22  '/>	<g transform="translate(119.20,557.42)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-07&s=updated' fill='#0080ff'>2020-07</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,524.99 M634.39,524.99  '/>	<g transform="translate(119.20,530.19)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-06&s=updated' fill='#0080ff'>2020-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,497.76 M634.39,497.76  '/>	<g transform="translate(119.20,502.96)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-05&s=updated' fill='#0080ff'>2020-05</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,470.53 M634.39,470.53  '/>	<g transform="translate(119.20,475.73)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-04&s=updated' fill='#0080ff'>2020-04</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,443.31 M634.39,443.31  '/>	<g transform="translate(119.20,448.51)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2020-03&s=updated' fill='#0080ff'>2020-03</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,416.08 M634.39,416.08  '/>	<g transform="translate(119.20,421.28)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2019-07&s=updated' fill='#0080ff'>2019-07</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,388.85 M634.39,388.85  '/>	<g transform="translate(119.20,394.05)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2019-06&s=updated' fill='#0080ff'>2019-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,361.63 M634.39,361.63  '/>	<g transform="translate(119.20,366.83)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2019-04&s=updated' fill='#0080ff'>2019-04</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,334.40 M634.39,334.40  '/>	<g transform="translate(119.20,339.60)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2019-03&s=updated' fill='#0080ff'>2019-03</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,307.17 M634.39,307.17  '/>	<g transform="translate(119.20,312.37)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2018-12&s=updated' fill='#0080ff'>2018-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,279.94 M634.39,279.94  '/>	<g transform="translate(119.20,285.14)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2018-06&s=updated' fill='#0080ff'>2018-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,252.72 M634.39,252.72  '/>	<g transform="translate(119.20,257.92)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2018-05&s=updated' fill='#0080ff'>2018-05</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,225.49 M634.39,225.49  '/>	<g transform="translate(119.20,230.69)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2017-12&s=updated' fill='#0080ff'>2017-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,198.26 M634.39,198.26  '/>	<g transform="translate(119.20,203.46)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2017-11&s=updated' fill='#0080ff'>2017-11</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,171.04 M634.39,171.04  '/>	<g transform="translate(119.20,176.24)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2017-10&s=updated' fill='#0080ff'>2017-10</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,143.81 M634.39,143.81  '/>	<g transform="translate(119.20,149.01)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2016-11&s=updated' fill='#0080ff'>2016-11</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,116.58 M634.39,116.58  '/>	<g transform="translate(119.20,121.78)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2015-12&s=updated' fill='#0080ff'>2015-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,89.35 M634.39,89.35  '/>	<g transform="translate(119.20,94.55)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2015-09&s=updated' fill='#0080ff'>2015-09</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,62.13 M634.39,62.13  '/>	<g transform="translate(119.20,67.33)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2015-07&s=updated' fill='#0080ff'>2015-07</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,34.90 M634.39,34.90  '/>	<g transform="translate(119.20,40.10)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:pr+state:open+created:2015-06&s=updated' fill='#0080ff'>2015-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="_plot_1" ><title>Number of PRs still open</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1461.60 202.41,1461.60 202.41,1439.81 130.40,1439.81 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1461.60 L130.40,1439.82 L202.40,1439.82 L202.40,1461.60 L130.40,1461.60 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1434.37 166.41,1434.37 166.41,1412.58 130.40,1412.58 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1434.37 L130.40,1412.59 L166.40,1412.59 L166.40,1434.37 L130.40,1434.37 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1407.15 202.41,1407.15 202.41,1385.35 130.40,1385.35 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1407.15 L130.40,1385.36 L202.40,1385.36 L202.40,1407.15 L130.40,1407.15 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1379.92 310.41,1379.92 310.41,1358.13 130.40,1358.13 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1379.92 L130.40,1358.14 L310.40,1358.14 L310.40,1379.92 L130.40,1379.92 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1352.69 166.41,1352.69 166.41,1330.90 130.40,1330.90 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1352.69 L130.40,1330.91 L166.40,1330.91 L166.40,1352.69 L130.40,1352.69 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1325.46 166.41,1325.46 166.41,1303.67 130.40,1303.67 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1325.46 L130.40,1303.68 L166.40,1303.68 L166.40,1325.46 L130.40,1325.46 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1298.24 166.41,1298.24 166.41,1276.45 130.40,1276.45 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1298.24 L130.40,1276.46 L166.40,1276.46 L166.40,1298.24 L130.40,1298.24 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1271.01 634.40,1271.01 634.40,1249.22 130.40,1249.22 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1271.01 L130.40,1249.23 L634.39,1249.23 L634.39,1271.01 L130.40,1271.01 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1243.78 166.41,1243.78 166.41,1221.99 130.40,1221.99 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1243.78 L130.40,1222.00 L166.40,1222.00 L166.40,1243.78 L130.40,1243.78 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1216.56 166.41,1216.56 166.41,1194.76 130.40,1194.76 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1216.56 L130.40,1194.77 L166.40,1194.77 L166.40,1216.56 L130.40,1216.56 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1189.33 238.41,1189.33 238.41,1167.54 130.40,1167.54 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1189.33 L130.40,1167.55 L238.40,1167.55 L238.40,1189.33 L130.40,1189.33 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1162.10 238.41,1162.10 238.41,1140.31 130.40,1140.31 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1162.10 L130.40,1140.32 L238.40,1140.32 L238.40,1162.10 L130.40,1162.10 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1134.87 382.41,1134.87 382.41,1113.08 130.40,1113.08 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1134.87 L130.40,1113.09 L382.40,1113.09 L382.40,1134.87 L130.40,1134.87 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1107.65 202.41,1107.65 202.41,1085.86 130.40,1085.86 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1107.65 L130.40,1085.87 L202.40,1085.87 L202.40,1107.65 L130.40,1107.65 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1080.42 202.41,1080.42 202.41,1058.63 130.40,1058.63 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1080.42 L130.40,1058.64 L202.40,1058.64 L202.40,1080.42 L130.40,1080.42 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1053.19 202.41,1053.19 202.41,1031.40 130.40,1031.40 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1053.19 L130.40,1031.41 L202.40,1031.41 L202.40,1053.19 L130.40,1053.19 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,1025.97 202.41,1025.97 202.41,1004.18 130.40,1004.18 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,1025.97 L130.40,1004.19 L202.40,1004.19 L202.40,1025.97 L130.40,1025.97 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,998.74 166.41,998.74 166.41,976.95 130.40,976.95 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,998.74 L130.40,976.96 L166.40,976.96 L166.40,998.74 L130.40,998.74 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,971.51 346.41,971.51 346.41,949.72 130.40,949.72 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,971.51 L130.40,949.73 L346.40,949.73 L346.40,971.51 L130.40,971.51 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,944.29 310.41,944.29 310.41,922.49 130.40,922.49 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,944.29 L130.40,922.50 L310.40,922.50 L310.40,944.29 L130.40,944.29 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,917.06 310.41,917.06 310.41,895.27 130.40,895.27 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,917.06 L130.40,895.28 L310.40,895.28 L310.40,917.06 L130.40,917.06 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,889.83 202.41,889.83 202.41,868.04 130.40,868.04 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,889.83 L130.40,868.05 L202.40,868.05 L202.40,889.83 L130.40,889.83 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,862.60 166.41,862.60 166.41,840.81 130.40,840.81 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,862.60 L130.40,840.82 L166.40,840.82 L166.40,862.60 L130.40,862.60 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,835.38 238.41,835.38 238.41,813.59 130.40,813.59 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,835.38 L130.40,813.60 L238.40,813.60 L238.40,835.38 L130.40,835.38 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,808.15 238.41,808.15 238.41,786.36 130.40,786.36 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,808.15 L130.40,786.37 L238.40,786.37 L238.40,808.15 L130.40,808.15 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,780.92 166.41,780.92 166.41,759.13 130.40,759.13 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,780.92 L130.40,759.14 L166.40,759.14 L166.40,780.92 L130.40,780.92 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,753.70 166.41,753.70 166.41,731.90 130.40,731.90 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,753.70 L130.40,731.91 L166.40,731.91 L166.40,753.70 L130.40,753.70 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,726.47 202.41,726.47 202.41,704.68 130.40,704.68 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,726.47 L130.40,704.69 L202.40,704.69 L202.40,726.47 L130.40,726.47 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,699.24 310.41,699.24 310.41,677.45 130.40,677.45 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,699.24 L130.40,677.46 L310.40,677.46 L310.40,699.24 L130.40,699.24 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,672.01 346.41,672.01 346.41,650.22 130.40,650.22 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,672.01 L130.40,650.23 L346.40,650.23 L346.40,672.01 L130.40,672.01 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,644.79 310.41,644.79 310.41,623.00 130.40,623.00 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,644.79 L130.40,623.01 L310.40,623.01 L310.40,644.79 L130.40,644.79 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,617.56 274.41,617.56 274.41,595.77 130.40,595.77 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,617.56 L130.40,595.78 L274.40,595.78 L274.40,617.56 L130.40,617.56 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,590.33 166.41,590.33 166.41,568.54 130.40,568.54 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,590.33 L130.40,568.55 L166.40,568.55 L166.40,590.33 L130.40,590.33 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,563.11 166.41,563.11 166.41,541.31 130.40,541.31 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,563.11 L130.40,541.32 L166.40,541.32 L166.40,563.11 L130.40,563.11 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,535.88 202.41,535.88 202.41,514.09 130.40,514.09 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,535.88 L130.40,514.10 L202.40,514.10 L202.40,535.88 L130.40,535.88 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,508.65 274.41,508.65 274.41,486.86 130.40,486.86 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,508.65 L130.40,486.87 L274.40,486.87 L274.40,508.65 L130.40,508.65 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,481.42 238.41,481.42 238.41,459.63 130.40,459.63 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,481.42 L130.40,459.64 L238.40,459.64 L238.40,481.42 L130.40,481.42 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,454.20 166.41,454.20 166.41,432.41 130.40,432.41 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,454.20 L130.40,432.42 L166.40,432.42 L166.40,454.20 L130.40,454.20 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,426.97 166.41,426.97 166.41,405.18 130.40,405.18 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,426.97 L130.40,405.19 L166.40,405.19 L166.40,426.97 L130.40,426.97 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,399.74 166.41,399.74 166.41,377.95 130.40,377.95 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,399.74 L130.40,377.96 L166.40,377.96 L166.40,399.74 L130.40,399.74 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,372.52 166.41,372.52 166.41,350.72 130.40,350.72 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,372.52 L130.40,350.73 L166.40,350.73 L166.40,372.52 L130.40,372.52 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,345.29 238.41,345.29 238.41,323.50 130.40,323.50 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,345.29 L130.40,323.51 L238.40,323.51 L238.40,345.29 L130.40,345.29 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,318.06 166.41,318.06 166.41,296.27 130.40,296.27 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,318.06 L130.40,296.28 L166.40,296.28 L166.40,318.06 L130.40,318.06 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,290.84 166.41,290.84 166.41,269.04 130.40,269.04 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,290.84 L130.40,269.05 L166.40,269.05 L166.40,290.84 L130.40,290.84 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,263.61 202.41,263.61 202.41,241.82 130.40,241.82 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,263.61 L130.40,241.83 L202.40,241.83 L202.40,263.61 L130.40,263.61 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,236.38 238.41,236.38 238.41,214.59 130.40,214.59 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,236.38 L130.40,214.60 L238.40,214.60 L238.40,236.38 L130.40,236.38 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,209.15 166.41,209.15 166.41,187.36 130.40,187.36 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,209.15 L130.40,187.37 L166.40,187.37 L166.40,209.15 L130.40,209.15 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,181.93 166.41,181.93 166.41,160.14 130.40,160.14 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,181.93 L130.40,160.15 L166.40,160.15 L166.40,181.93 L130.40,181.93 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,154.70 166.41,154.70 166.41,132.91 130.40,132.91 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,154.70 L130.40,132.92 L166.40,132.92 L166.40,154.70 L130.40,154.70 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,127.47 166.41,127.47 166.41,105.68 130.40,105.68 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,127.47 L130.40,105.69 L166.40,105.69 L166.40,127.47 L130.40,127.47 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,100.25 166.41,100.25 166.41,78.45 130.40,78.45 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,100.25 L130.40,78.46 L166.40,78.46 L166.40,100.25 L130.40,100.25 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,73.02 166.41,73.02 166.41,51.23 130.40,51.23 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,73.02 L130.40,51.24 L166.40,51.24 L166.40,73.02 L130.40,73.02 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '130.40,45.79 166.41,45.79 166.41,24.00 130.40,24.00 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M130.40,45.79 L130.40,24.01 L166.40,24.01 L166.40,45.79 L130.40,45.79 Z  '/></g>
+	</g>
+	<g id="_plot_2"  fill="none"><title>_plot_2</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(166.40,1454.94)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(148.40,1427.71)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(166.40,1400.48)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(220.40,1373.26)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >5</tspan></text>
+	</g>
+	<g transform="translate(148.40,1346.03)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,1318.80)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,1291.58)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(382.40,1264.35)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >14</tspan></text>
+	</g>
+	<g transform="translate(148.40,1237.12)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,1209.90)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(184.40,1182.67)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(184.40,1155.44)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(256.40,1128.21)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >7</tspan></text>
+	</g>
+	<g transform="translate(166.40,1100.99)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(166.40,1073.76)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(166.40,1046.53)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(166.40,1019.31)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(148.40,992.08)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(238.40,964.85)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >6</tspan></text>
+	</g>
+	<g transform="translate(220.40,937.62)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >5</tspan></text>
+	</g>
+	<g transform="translate(220.40,910.40)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >5</tspan></text>
+	</g>
+	<g transform="translate(166.40,883.17)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(148.40,855.94)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(184.40,828.72)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(184.40,801.49)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(148.40,774.26)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,747.03)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(166.40,719.81)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(220.40,692.58)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >5</tspan></text>
+	</g>
+	<g transform="translate(238.40,665.35)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >6</tspan></text>
+	</g>
+	<g transform="translate(220.40,638.13)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >5</tspan></text>
+	</g>
+	<g transform="translate(202.40,610.90)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >4</tspan></text>
+	</g>
+	<g transform="translate(148.40,583.67)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,556.45)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(166.40,529.22)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(202.40,501.99)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >4</tspan></text>
+	</g>
+	<g transform="translate(184.40,474.76)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(148.40,447.54)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,420.31)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,393.08)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,365.86)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(184.40,338.63)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(148.40,311.40)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,284.17)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(166.40,256.95)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(184.40,229.72)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(148.40,202.49)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,175.27)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,148.04)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,120.81)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,93.58)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,66.36)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(148.40,39.13)" stroke="none" fill="rgb(68,68,68)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+</g>
+	</g>
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(221, 221, 221)' fill-opacity='0.50'  points = '359.49,54.01 623.19,54.01 623.19,36.01 359.49,36.01 '/>
+	</g>
+	<g id="_plot_1" ><title>Number of PRs still open</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(560.85,48.91)" stroke="none" fill="rgb(240,50,50)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >Number of PRs still open</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(240,  50,  50)' fill-opacity = '0.500000' points = '569.24,49.51 614.80,49.51 614.80,40.51 569.24,40.51 '/>
+	</g>
+	<path stroke='rgb(240,  50,  50)'  d='M569.24,49.51 L614.80,49.51 L614.80,40.51 L569.24,40.51 L569.24,49.51 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="_plot_2"  fill="none"><title>_plot_2</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+<g fill="none" color="white" stroke="rgb( 68,  68,  68)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(36.80,742.81) rotate(270.00)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Month created</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(382.39,29.21)" stroke="none" fill="rgb(186,83,19)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
+    <table class="simple" id="open-prs-age-stats">
+      <caption><a href="#open-prs-age-stats"><span>🔗</span> Age statistics for all open PRs</a>
+      <thead>
+        <tr>
+          <th>Newest
+          <th>1st Qu
+          <th>Median
+          <th>Mean
+          <th>3rd Qu
+          <th>𝜂90th
+          <th>Oldest
+      </thead>
+        <tr>
+          <td>44 days
+          <td>545 days
+          <td>854 days
+          <td>1057 days
+          <td>1346 days
+          <td>1892 days
+          <td>3243 days
+      <tfoot>
+         <tr>
+           <td colspan=8>Standard deviation: 691 days
+    </table>
+  </div>
+    <div class="bargraph">
+    <h3 id="prs-merged-closed"><a href="#prs-merged-closed"><span>🔗</span>
+      PRs merged/closed</a></h3>
+    <p>
+    <a href="https://github.com/search?q=repo:mongodb/docs+type:pr+state:closed+created:%3C=2024-05-15">6100 PRs</a>
+    were merged/closed as of 15 May 2024
+    <p>46.21 times as many
+    closed PRs as open PRs.
+    <p class="svg">
+<svg 
+ width="668" height="700"
+ viewBox="0 0 668 700"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Latest1000mergedclosedPRs</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="668" height="700" fill="none"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.167' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.167' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.167' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.167' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.167' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.167' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.167' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.167' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='white' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,667.83 M634.39,667.83  '/>	<g transform="translate(119.20,673.03)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2024-04&s=updated' fill='#0080ff'>2024-04</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,643.41 M634.39,643.41  '/>	<g transform="translate(119.20,648.61)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2023-11&s=updated' fill='#0080ff'>2023-11</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,618.99 M634.39,618.99  '/>	<g transform="translate(119.20,624.19)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2023-08&s=updated' fill='#0080ff'>2023-08</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,594.58 M634.39,594.58  '/>	<g transform="translate(119.20,599.78)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2023-06&s=updated' fill='#0080ff'>2023-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,570.16 M634.39,570.16  '/>	<g transform="translate(119.20,575.36)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2023-03&s=updated' fill='#0080ff'>2023-03</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,545.74 M634.39,545.74  '/>	<g transform="translate(119.20,550.94)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2023-01&s=updated' fill='#0080ff'>2023-01</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,521.32 M634.39,521.32  '/>	<g transform="translate(119.20,526.52)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-12&s=updated' fill='#0080ff'>2022-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,496.90 M634.39,496.90  '/>	<g transform="translate(119.20,502.10)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-11&s=updated' fill='#0080ff'>2022-11</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,472.48 M634.39,472.48  '/>	<g transform="translate(119.20,477.68)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-09&s=updated' fill='#0080ff'>2022-09</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,448.06 M634.39,448.06  '/>	<g transform="translate(119.20,453.26)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-08&s=updated' fill='#0080ff'>2022-08</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,423.64 M634.39,423.64  '/>	<g transform="translate(119.20,428.84)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-07&s=updated' fill='#0080ff'>2022-07</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,399.22 M634.39,399.22  '/>	<g transform="translate(119.20,404.42)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-06&s=updated' fill='#0080ff'>2022-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,374.80 M634.39,374.80  '/>	<g transform="translate(119.20,380.00)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-04&s=updated' fill='#0080ff'>2022-04</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,350.39 M634.39,350.39  '/>	<g transform="translate(119.20,355.59)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-03&s=updated' fill='#0080ff'>2022-03</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,325.97 M634.39,325.97  '/>	<g transform="translate(119.20,331.17)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2022-02&s=updated' fill='#0080ff'>2022-02</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,301.55 M634.39,301.55  '/>	<g transform="translate(119.20,306.75)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-12&s=updated' fill='#0080ff'>2021-12</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,277.13 M634.39,277.13  '/>	<g transform="translate(119.20,282.33)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-11&s=updated' fill='#0080ff'>2021-11</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,252.71 M634.39,252.71  '/>	<g transform="translate(119.20,257.91)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-10&s=updated' fill='#0080ff'>2021-10</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,228.29 M634.39,228.29  '/>	<g transform="translate(119.20,233.49)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-09&s=updated' fill='#0080ff'>2021-09</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,203.87 M634.39,203.87  '/>	<g transform="translate(119.20,209.07)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-08&s=updated' fill='#0080ff'>2021-08</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,179.45 M634.39,179.45  '/>	<g transform="translate(119.20,184.65)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-07&s=updated' fill='#0080ff'>2021-07</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,155.03 M634.39,155.03  '/>	<g transform="translate(119.20,160.23)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-06&s=updated' fill='#0080ff'>2021-06</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,130.62 M634.39,130.62  '/>	<g transform="translate(119.20,135.82)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-05&s=updated' fill='#0080ff'>2021-05</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,106.20 M634.39,106.20  '/>	<g transform="translate(119.20,111.40)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2021-04&s=updated' fill='#0080ff'>2021-04</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M130.40,81.78 M634.39,81.78  '/>	<g transform="translate(119.20,86.98)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="end">
+		<text><tspan font-family="Arial" ><a href='https://github.com/search?q=repo:mongodb/docs+type:issue+state:closed+created:2018-02&s=updated' fill='#0080ff'>2018-02</a></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="Latest1000mergedclosedPRs_plot_1" ><title>Number of PRs merged/closed</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,677.60 133.66,677.60 133.66,658.05 130.40,658.05 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,677.60 L130.40,658.06 L133.65,658.06 L133.65,677.60 L130.40,677.60 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,653.18 133.66,653.18 133.66,633.64 130.40,633.64 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,653.18 L130.40,633.65 L133.65,633.65 L133.65,653.18 L130.40,653.18 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,628.76 133.66,628.76 133.66,609.22 130.40,609.22 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,628.76 L130.40,609.23 L133.65,609.23 L133.65,628.76 L130.40,628.76 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,604.34 136.91,604.34 136.91,584.80 130.40,584.80 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,604.34 L130.40,584.81 L136.90,584.81 L136.90,604.34 L130.40,604.34 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,579.92 133.66,579.92 133.66,560.38 130.40,560.38 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,579.92 L130.40,560.39 L133.65,560.39 L133.65,579.92 L130.40,579.92 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,555.51 133.66,555.51 133.66,535.96 130.40,535.96 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,555.51 L130.40,535.97 L133.65,535.97 L133.65,555.51 L130.40,555.51 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,531.09 133.66,531.09 133.66,511.54 130.40,511.54 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,531.09 L130.40,511.55 L133.65,511.55 L133.65,531.09 L130.40,531.09 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,506.67 133.66,506.67 133.66,487.12 130.40,487.12 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,506.67 L130.40,487.13 L133.65,487.13 L133.65,506.67 L130.40,506.67 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,482.25 143.42,482.25 143.42,462.70 130.40,462.70 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,482.25 L130.40,462.71 L143.41,462.71 L143.41,482.25 L130.40,482.25 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,457.83 133.66,457.83 133.66,438.28 130.40,438.28 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,457.83 L130.40,438.29 L133.65,438.29 L133.65,457.83 L130.40,457.83 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,433.41 133.66,433.41 133.66,413.87 130.40,413.87 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,433.41 L130.40,413.88 L133.65,413.88 L133.65,433.41 L130.40,433.41 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,408.99 140.16,408.99 140.16,389.45 130.40,389.45 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,408.99 L130.40,389.46 L140.15,389.46 L140.15,408.99 L130.40,408.99 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,384.57 133.66,384.57 133.66,365.03 130.40,365.03 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,384.57 L130.40,365.04 L133.65,365.04 L133.65,384.57 L130.40,384.57 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,360.15 140.16,360.15 140.16,340.61 130.40,340.61 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,360.15 L130.40,340.62 L140.15,340.62 L140.15,360.15 L130.40,360.15 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,335.73 136.91,335.73 136.91,316.19 130.40,316.19 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,335.73 L130.40,316.20 L136.90,316.20 L136.90,335.73 L130.40,335.73 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,311.32 136.91,311.32 136.91,291.77 130.40,291.77 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,311.32 L130.40,291.78 L136.90,291.78 L136.90,311.32 L130.40,311.32 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,286.90 569.37,286.90 569.37,267.35 130.40,267.35 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,286.90 L130.40,267.36 L569.36,267.36 L569.36,286.90 L130.40,286.90 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,262.48 634.40,262.48 634.40,242.93 130.40,242.93 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,262.48 L130.40,242.94 L634.39,242.94 L634.39,262.48 L130.40,262.48 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,238.06 553.11,238.06 553.11,218.51 130.40,218.51 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,238.06 L130.40,218.52 L553.10,218.52 L553.10,238.06 L130.40,238.06 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,213.64 553.11,213.64 553.11,194.09 130.40,194.09 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,213.64 L130.40,194.10 L553.10,194.10 L553.10,213.64 L130.40,213.64 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,189.22 624.65,189.22 624.65,169.68 130.40,169.68 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,189.22 L130.40,169.69 L624.64,169.69 L624.64,189.22 L130.40,189.22 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,164.80 465.32,164.80 465.32,145.26 130.40,145.26 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,164.80 L130.40,145.27 L465.31,145.27 L465.31,164.80 L130.40,164.80 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,140.38 517.34,140.38 517.34,120.84 130.40,120.84 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,140.38 L130.40,120.85 L517.33,120.85 L517.33,140.38 L130.40,140.38 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,115.96 289.74,115.96 289.74,96.42 130.40,96.42 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,115.96 L130.40,96.43 L289.73,96.43 L289.73,115.96 L130.40,115.96 Z  '/>	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '130.40,91.55 133.66,91.55 133.66,72.00 130.40,72.00 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M130.40,91.55 L130.40,72.01 L133.65,72.01 L133.65,91.55 L130.40,91.55 Z  '/></g>
+	</g>
+	<g id="Latest1000mergedclosedPRs_plot_2"  fill="none"><title>Latest1000mergedclosedPRs_plot_2</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(132.03,672.06)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(132.03,647.64)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(132.03,623.22)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(133.65,598.81)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(132.03,574.39)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(132.03,549.97)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(132.03,525.55)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(132.03,501.13)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(136.90,476.71)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >4</tspan></text>
+	</g>
+	<g transform="translate(132.03,452.29)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(132.03,427.87)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(135.28,403.45)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(132.03,379.03)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+	<g transform="translate(135.28,354.62)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >3</tspan></text>
+	</g>
+	<g transform="translate(133.65,330.20)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(133.65,305.78)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >2</tspan></text>
+	</g>
+	<g transform="translate(349.88,281.36)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >135</tspan></text>
+	</g>
+	<g transform="translate(382.40,256.94)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >155</tspan></text>
+	</g>
+	<g transform="translate(341.75,232.52)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >130</tspan></text>
+	</g>
+	<g transform="translate(341.75,208.10)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >130</tspan></text>
+	</g>
+	<g transform="translate(377.52,183.68)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >152</tspan></text>
+	</g>
+	<g transform="translate(297.85,159.26)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >103</tspan></text>
+	</g>
+	<g transform="translate(323.87,134.85)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >119</tspan></text>
+	</g>
+	<g transform="translate(210.06,110.43)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >49</tspan></text>
+	</g>
+	<g transform="translate(132.03,86.01)" stroke="none" fill="rgb(255,255,255)" font-family="arial" font-size="13.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >1</tspan></text>
+	</g>
+</g>
+	</g>
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(221, 221, 221)' fill-opacity='0.50'  points = '334.32,102.01 623.19,102.01 623.19,84.01 334.32,84.01 '/>
+	</g>
+	<g id="Latest1000mergedclosedPRs_plot_1" ><title>Number of PRs merged/closed</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(560.85,96.91)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >Number of PRs merged/closed</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(  0, 128, 255)' fill-opacity = '0.500000' points = '569.24,97.51 614.80,97.51 614.80,88.51 569.24,88.51 '/>
+	</g>
+	<path stroke='rgb(  0, 128, 255)'  d='M569.24,97.51 L614.80,97.51 L614.80,88.51 L569.24,88.51 L569.24,97.51 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="Latest1000mergedclosedPRs_plot_2"  fill="none"><title>Latest1000mergedclosedPRs_plot_2</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+<g fill="none" color="white" stroke="rgb(255, 255, 255)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(36.80,374.81) rotate(270.00)" stroke="none" fill="rgb(0,128,255)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Month created</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(382.39,41.21)" stroke="none" fill="rgb(186,83,19)" font-family="Arial" font-size="16.00"  text-anchor="middle">
+		<text><tspan font-family="Arial" >Latest 1000 merged/closed PRs</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
+    <table class="simple" id="merged-closed-prs-ttc-stats">
+      <caption><a href="#merged-closed-prs-ttc-stats"><span>🔗</span> Time-to-close statistics for latest 1000 merged/closed PRs</a>
+      <thead>
+        <tr>
+          <th>Fastest
+          <th>1st Qu
+          <th>Median
+          <th>Mean
+          <th>3rd Qu
+          <th>𝜂90th
+          <th>Longest
+      </thead>
+        <tr>
+          <td>0 days
+          <td>0 days
+          <td>0 days
+          <td>7 days
+          <td>0 days
+          <td>0 days
+          <td>1014 days
+      <tfoot>
+         <tr>
+           <td colspan=8>Standard deviation: 60 days
+    </table>
+  </div>
+</div>
+<p>
+<a href="https://github.com/git-pulse/tools"><img height=18 alt="git-pulse logo" src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzkuMDggMzM2LjUyIj4KICA8cmFkaWFsR3JhZGllbnQKICAgICAgaWQ9InJhZGlhbEdyYWRpZW50MzczNCIKICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiCiAgICAgIGN5PSI2OTAuMjgiCiAgICAgIGN4PSI0NjcuNzEiCiAgICAgIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMTQuNTcyIC0uMDAyMDExOSAuMDE2OTM5IDE4MC4wOSAtNjM1OS40IC0xLjIzNDVlNSkiCiAgICAgIHI9IjQwLjYyMyI+CiAgICA8c3RvcCBpZD0ic3RvcDM3MzAiIHN0eWxlPSJzdG9wLWNvbG9yOiMzMmNkMzIiIG9mZnNldD0iMCIgLz4KICAgIDxzdG9wIGlkPSJzdG9wMzczMiIgc3R5bGU9InN0b3AtY29sb3I6IzMyY2QzMjtzdG9wLW9wYWNpdHk6MCIgb2Zmc2V0PSIxIiAvPgogIDwvcmFkaWFsR3JhZGllbnQ+CiAgPGcgaWQ9ImxheWVyMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTQ2Ny43MSAtNjIzLjUzKSI+CiAgICA8cGF0aCBpZD0icGF0aDIzOTYiCiAgICAgICAgc3R5bGU9InN0cm9rZTp1cmwoI3JhZGlhbEdyYWRpZW50MzczNCk7c3Ryb2tlLXdpZHRoOjI0LjA0NTtmaWxsOm5vbmUiCiAgICAgICAgZD0ibTQ3OS43MyA4NTAuNjhzMTkuNjkgMTEgMjYuMzUgMTcuODRjMTAgMTAuMjcgMTkuMDUgNTIuOTggMjUuNyA0MC4yOCA0MC4yLTc2Ljc2IDU4LjEyLTI3My4yNSA1OC4xMi0yNzMuMjVzMC4zNyAxMjUuMzkgNy40MyAxNzguNTNjNS4zNCA0MC4yNiAxOS42NyAxNDkuNzEgMjkuODcgMTMyLjAyIDE3LjAyLTI5LjUxIDIyLjYzLTg3LjE2IDMyLjk3LTEyNi42NSA0Ljk1LTE4LjkyIDE4LjYzIDM3Ljk3IDMxLjIzIDU3LjI2IDUuNzIgOC43NiA0Ljk2LTMzLjE5IDE1LjYxLTMyLjEgMjYuMDMgMi42NiAyNy43NiAwLjg3IDI3Ljc2IDAuODciIC8+CiAgPC9nPgo8L3N2Zz4K"></a>
+<small>Generated with <a href="https://github.com/git-pulse/tools">git-pulse</a></small>
