@@ -798,7 +798,8 @@
 ></a>
 <small>Generated with <a href="https://github.com/git-pulse/tools">git-pulse-rank.js</a></small>
 <script>
-const classToHighlight = localStorage.getItem("classToHighlight");
+const params = new URLSearchParams(document.location.search);
+const classToHighlight = params.get("project") ? params.get("project") : localStorage.getItem("classToHighlight");
 if (classToHighlight) {
   document.querySelectorAll(".highlight")
     .forEach((element) => element.classList.remove("highlight"));
@@ -815,5 +816,8 @@ document.body.onclick = (e) => {
   document.querySelectorAll("." + className)
     .forEach((element) => element.classList.add("highlight"));
   localStorage.setItem("classToHighlight", className);
+  const url = new URL(window.location.href);
+  url.searchParams.set("project", className);
+  window.history.pushState(null, "", url.toString());
 }
 </script>
