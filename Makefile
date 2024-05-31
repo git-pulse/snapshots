@@ -15,6 +15,7 @@ REPO_URLS=\
 		  git@github.com:awsdocs/aws-doc-sdk-examples.git \
 		  git@github.com:awsdocs/aws-lambda-developer-guide.git \
 		  git@github.com:chef/chef.git \
+		  git@github.com:chromium/chromium.git \
 		  git@github.com:denoland/deno.git \
 		  git@github.com:django/django.git \
 		  git@github.com:docker/docker.github.io.git \
@@ -42,6 +43,7 @@ REPO_URLS=\
 		  git@github.com:microsoft/playwright.git \
 		  git@github.com:microsoft/vscode-docs.git \
 		  git@github.com:moby/moby.git \
+		  git@github.com:mozilla/gecko-dev.git \
 		  git@github.com:mrdoob/three.js.git \
 		  git@github.com:mui/material-ui.git \
 		  git@github.com:nodejs/node.git \
