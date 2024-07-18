@@ -2,6 +2,7 @@ REPO_URLS=\
 		  git@github.com:Homebrew/homebrew-cask.git \
 		  git@github.com:Homebrew/homebrew-core.git \
 		  git@github.com:JuliaLang/julia.git \
+		  git@github.com:LadybirdBrowser/ladybird.git \
 		  git@github.com:MicrosoftDocs/azure-devops-docs.git \
 		  git@github.com:MicrosoftDocs/azure-docs.git \
 		  git@github.com:MicrosoftDocs/sql-docs.git \
