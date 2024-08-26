@@ -65,6 +65,7 @@ REPO_URLS=\
 		  git@github.com:spring-projects/spring-framework.git \
 		  git@github.com:spring-projects/spring-security.git \
 		  git@github.com:sveltejs/svelte.git \
+		  git@github.com:swiftlang/swift.git \
 		  git@github.com:symfony/symfony-docs.git \
 		  git@github.com:symfony/symfony.git \
 		  git@github.com:tc39/ecma262.git \
