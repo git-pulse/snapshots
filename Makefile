@@ -7,6 +7,7 @@ REPO_URLS=\
 		  git@github.com:MicrosoftDocs/azure-docs.git \
 		  git@github.com:MicrosoftDocs/sql-docs.git \
 		  git@github.com:MicrosoftDocs/visualstudio-docs.git \
+		  git@github.com:NixOS/nixpkgs.git \
 		  git@github.com:PowerShell/PowerShell.git \
 		  git@github.com:SeleniumHQ/selenium.git \
 		  git@github.com:WebKit/WebKit.git \
