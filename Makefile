@@ -61,6 +61,7 @@ REPO_URLS=\
 		  git@github.com:reactjs/react.dev.git \
 		  git@github.com:rust-lang/rust.git \
 		  git@github.com:scikit-learn/scikit-learn.git \
+		  git@github.com:servo/servo.git \
 		  git@github.com:sphinx-doc/sphinx.git \
 		  git@github.com:spring-projects/spring-boot.git \
 		  git@github.com:spring-projects/spring-framework.git \
